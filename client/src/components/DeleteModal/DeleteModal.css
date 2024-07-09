@@ -1,0 +1,22 @@
+.custom-button-green {
+    background-color: #5AB35B;
+    border: 0px;
+    color: white;
+  }
+  
+  .custom-button-red {
+    background-color: #E85E6C;
+    border: 0px;
+    color: white;
+  }
+  
+  .custom-button-green:hover, .custom-button-green:focus, .custom-button-green:active {
+    background-color: #3b883b !important;
+    box-shadow: none !important;
+  }
+  
+  .custom-button-red:hover, .custom-button-red:focus, .custom-button-red:active {
+    background-color: #d64141 !important;
+    box-shadow: none !important;
+  }
+  

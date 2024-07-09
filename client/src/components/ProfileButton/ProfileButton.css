@@ -1,0 +1,55 @@
+.profile-button {
+    background-color: rgb(244, 241, 209) !important;
+    position: absolute;
+    padding-top: 0.5rem;
+    right: 3rem;
+    outline: none !important;
+}
+
+/* styles.css */
+.grid-container {
+    /* background-color: aqua; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Adjust the gap between items as needed */
+    max-height: 400px;
+    width: 100%;
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds max height */
+    border: 1px solid #ccc; /* Optional: Border for the container */
+    padding: 10px;
+    box-sizing: border-box; /* Ensure padding is included in the container's total width and height */
+    /* min-width: 300px; */
+    min-height: 300px;
+  }
+  
+  .grid-item {
+    flex: 0 1 calc(33.33% - 10px); /* 3 items per row with gap consideration */
+    box-sizing: border-box;
+    background-color: #f0f0f0; /* Optional: Background color for items */
+    border: 1px solid #0e0d0d; /* Optional: Border for items */
+    /* padding: 20px; */
+    /* text-align: center; */
+    width: 200px;
+    height: 200px;
+    cursor:pointer;
+  }
+  
+  .grid-container::-webkit-scrollbar{
+    width:5px;
+    background-color:whitesmoke;
+    }
+
+  .grid-container::-webkit-scrollbar-thumb{
+      background:rgb(160, 157, 157);
+      border-radius:5px;
+  }
+
+  img{
+    width: 100%;
+    height: 100%;
+  }
+@media only screen and (max-width : 600px){
+    .grid-item{
+        flex: 0 1 calc(50% - 10px);
+    }
+}
