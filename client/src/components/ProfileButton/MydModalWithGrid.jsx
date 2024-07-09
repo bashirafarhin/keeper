@@ -5,7 +5,6 @@ import Modal from 'react-bootstrap/Modal';
 import backgroundImagesLink from './BackgroundImages';
 import { useLocation,useNavigate } from 'react-router-dom';
 import axios from "axios";
-// import backgroundImages from "../../../public/backgroundImages"
 
 export function MydModalWithGrid(props) {
   const location = useLocation();
