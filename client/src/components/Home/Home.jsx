@@ -7,10 +7,11 @@ import CreateArea from "../CreateArea/CreateArea.jsx";
 import { UserContext } from "../../context/UserContext.jsx";
 import { getAllNotes } from "../../service/api.js";
 import { useParams } from "react-router-dom";
+import backgroundImagesLink from "../ProfileButton/BackgroundImages.js";
 
 const Home = () => {
     const { id }=useParams();
-    const { details : { notes }, setDetails}=useContext(UserContext);
+    const { details : { notes , backgroundImageIndex }, setDetails}=useContext(UserContext);
 
     useEffect(() => {
       const fetchNotes = async () => {
@@ -23,10 +24,10 @@ const Home = () => {
 
       };
       fetchNotes();
-    }, [id,setDetails]);    
+    }, [id,setDetails]);
 
     return (
-      <div>
+      <div style={{backgroundImage: `url(/backgroundImages/${backgroundImagesLink[backgroundImageIndex]})`}} className="home-container">
       <Header/>
       <div>
       <CreateArea/>

@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { Button, Container, Modal } from 'react-bootstrap';
 import backgroundImagesLink from './BackgroundImages';
 import { useParams } from 'react-router-dom';
@@ -7,20 +7,16 @@ import { changeBackgroundImage } from '../../service/api';
 
 const MydModalWithGrid = (props) => {
   const { id }=useParams();
-  const { details : { backgroundImageIndex }, setDetails } = useContext(UserContext);
+  const { setDetails } = useContext(UserContext);
 
   const handleBackgroundImage = async(index) => {
-    await changeBackgroundImage(index,id);
     setDetails((prevDetails) => ({
       ...prevDetails,
       backgroundImageIndex : index
     }));
+    await changeBackgroundImage(index,id);
   };
 
-  useEffect(() => {
-    let img=backgroundImagesLink[backgroundImageIndex];
-    document.body.style.backgroundImage = `url(${(`/backgroundImages/${img}`)})`;
-  }, [backgroundImageIndex]);
 
   return (
     <Modal size="lg" show={props.Show2} onHide={props.onSHide2} aria-labelledby="contained-modal-title-vcenter example-modal-sizes-title-lg">
