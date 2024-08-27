@@ -1,0 +1,74 @@
+* {
+    box-sizing: border-box;
+}
+
+.login-container {
+    height: 80vh;
+    width: 30vw;
+    min-width: 415px;
+    margin: 3rem auto;
+}
+.login-page-logo {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playwrite US Trad',cursive;
+  font-size: 4rem;
+  text-shadow: 3px 3px grey;
+}
+.login-form {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap : 2.5rem;
+    border-radius: 7px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    
+}
+
+.login-input {
+    display: block !important;
+    height:8%;
+    width: 90%;
+    border-radius: 7px;
+    color: rgb(33, 32, 32);
+    border: 1px solid #C9C9C9;
+    padding-left: 10px;
+    font-size: large;
+  }
+  
+  .login-input:focus {
+    outline: 2px solid #0074D9;
+    border: none;
+  }
+
+  .login-or-option{
+    color: #757575;
+  }
+
+  .register-button {
+    color: #393737;
+    font-size: large;
+    font-weight: 500;
+  }
+
+  .register-button > Button {
+    outline : none;
+  }
+
+  @media only screen and (max-width:1115px){
+    .login-container {
+        width: 50%;
+    }
+  }
+
+  @media only screen and (max-width:670px){
+    .login-container {
+        width: 80%;
+    }
+  }

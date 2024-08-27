@@ -1,0 +1,51 @@
+.profile-button {
+    background-color: rgb(244, 241, 209) !important;
+    position: absolute;
+    padding-top: 0.5rem;
+    right: 3rem;
+    outline: none !important;
+}
+
+
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-height: 400px;
+    width: 100%;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+    min-height: 300px;
+  }
+  
+  .grid-item {
+    flex: 0 1 calc(33.33% - 10px);
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+    border: 1px solid #0e0d0d;
+    width: 200px;
+    height: 200px;
+    cursor:pointer;
+  }
+  
+  .grid-container::-webkit-scrollbar{
+    width:5px;
+    background-color:whitesmoke;
+    }
+
+  .grid-container::-webkit-scrollbar-thumb{
+      background:rgb(160, 157, 157);
+      border-radius:5px;
+  }
+
+  img{
+    width: 100%;
+    height: 100%;
+  }
+@media only screen and (max-width : 600px){
+    .grid-item{
+        flex: 0 1 calc(50% - 10px);
+    }
+}

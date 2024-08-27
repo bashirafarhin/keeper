@@ -1,0 +1,137 @@
+  * {
+    box-sizing: border-box;
+  }
+
+  .note-box {
+    background-color: whitesmoke;
+    height: 40vh;
+    width: 28vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    border: 1px solid gray;
+    border-radius: 7px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+  }
+
+  .note-title {
+    height: 18%;
+    width: 98%;
+    color: #898585;
+    font-family: "Playwrite IT Moderna", cursive;
+    overflow-x: auto;
+    border-radius: 7px;
+  }
+
+  [contenteditable="true"].single-line {
+    white-space: nowrap;
+    width:98%;
+    height: 100%;
+    overflow: hidden;
+  } 
+  [contenteditable="true"].single-line br {
+    display:none;
+  
+  }
+  [contenteditable="true"].single-line * {
+    display:inline;
+    white-space:nowrap;
+  }
+
+  
+
+  .note-title::-webkit-scrollbar{
+    height:3px;
+    width: 100%;
+    background-color:whitesmoke;
+    }
+
+  .note-title::-webkit-scrollbar-thumb{
+    background:rgb(160, 157, 157);
+    border-radius:5px;
+  }
+  
+  .horizontal-line {
+    height: 1px;
+    width: 98%;
+    background-color: #898585;
+    border-radius: 7px;
+  }
+
+  .note-content {
+    height: 70%;
+    width: 98%;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-y: auto;
+    font-family: "Playwrite DE Grund", cursive;
+    font-size: 1.5rem;
+    padding: 4px;
+    border-radius: 7px;
+  }
+
+  [contenteditable="true"].note-content-p {
+    width:98%;
+    height: 100%;
+  } 
+
+  .note-content::-webkit-scrollbar{
+    height:100%;
+    width: 3px;
+    background-color:whitesmoke;
+    }
+
+  .note-content::-webkit-scrollbar-thumb{
+    background:rgb(160, 157, 157);
+    border-radius:5px;
+  }
+
+  .note-button{
+    height: 7%;
+    width: 98%;
+    border-radius: 7px;
+    display: flex;
+    justify-items: flex-end;
+    gap: 5px;
+  }
+  .note-option-button{
+    height: 100%;
+    width: 1rem;
+  }  
+
+  .note-content::-webkit-scrollbar{
+    width:5px;
+    background-color:whitesmoke;
+    }
+
+  .note-content::-webkit-scrollbar-thumb{
+      background:rgb(160, 157, 157);
+      border-radius:5px;
+  }
+  
+  .note-button{
+    height: 7%;
+    width: 100%;
+    display: flex;
+    justify-items: flex-end;
+    gap: 5px;
+  }
+
+  .note-option-button{
+    height: 100%;
+    width: 1rem;
+  }
+
+@media only screen and (max-width : 900px){
+  .note-box{
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width : 450px){
+  .note-box{
+    width: 100%;
+  }
+}

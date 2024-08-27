@@ -1,0 +1,21 @@
+:root {
+    --white : #fff;
+    --yellow : #f5ba13;
+  }
+  
+  .flex-box{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 2rem 2rem 5rem 3rem;
+  }
+  
+  @media only screen and (max-width : 888px){
+    .flex-box{
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 300px;
+    }
+  }
+  
