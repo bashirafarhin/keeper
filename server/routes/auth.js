@@ -26,8 +26,9 @@ authRouter.use(
             ttl: 1 * 60 * 60
         }),
         cookie: {
-            secure: true,
+            secure: process.env.NODE_ENV === 'production',
             httpOnly: true,
+            sameSite: 'None',
             maxAge: 1000 * 60 * 60
         }
     })
