@@ -37,7 +37,6 @@ const BasicMenu = () => {
   };
 
   const handleClickLogout = async() => {
-    document.body.style.backgroundImage = "none";
     setAnchorEl(null);
     await userLogout();
     googleLogout();
