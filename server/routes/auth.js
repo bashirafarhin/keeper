@@ -26,7 +26,7 @@ authRouter.use(
             ttl: 1 * 60 * 60
         }),
         cookie: {
-            secure: false,
+            secure: true,
             httpOnly: true,
             maxAge: 1000 * 60 * 60
         }
@@ -95,9 +95,11 @@ authRouter.post('/auth/google',async(req,res) => {
 
 authRouter.get('/check', (req, res) => {
   if (req.isAuthenticated()) {
-      return res.json({ id: req.user._id.toString(), authenticated: true });
+    console.log("authenticated");
+    return res.json({ id: req.user._id.toString(), authenticated: true });
   } else {
-      return res.json({ authenticated: false });
+    console.log("not authenticated");
+    return res.json({ authenticated: false });
   }
 });
 
