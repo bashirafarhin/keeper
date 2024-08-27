@@ -95,10 +95,8 @@ authRouter.post('/auth/google',async(req,res) => {
 
 authRouter.get('/check', (req, res) => {
   if (req.isAuthenticated()) {
-    console.log("authenticated");
     return res.json({ id: req.user._id.toString(), authenticated: true });
   } else {
-    console.log("not authenticated");
     return res.json({ authenticated: false });
   }
 });
