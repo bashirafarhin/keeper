@@ -1,9 +1,7 @@
 # Keeper - Notepad Full Stack MERN Application
 Keeper is a full-stack notepad application built using the MERN stack (MongoDB, Express, React, Node.js). It allows users to securely manage notes, change backgrounds, and handle accounts with encrypted authentication and sessions. The app is responsive and provides seamless navigation, making it an ideal solution for users who want to keep their notes organized.
 
-![Screenshot 2024-09-30 213019](https://github.com/user-attachments/assets/401bb50d-f142-4ead-954d-a1aa73ad8432) ![Screenshot 2024-09-30 212741](https://github.com/user-attachments/assets/f2b5a0ae-da02-412a-a91d-e0030ae23649) ![Screenshot 2024-09-30 212815](https://github.com/user-attachments/assets/2dbe7040-65bc-413a-a77d-9c5cae7bafa2)
-![Screenshot 2024-09-30 212828](https://github.com/user-attachments/assets/e4d6d8a7-cf0c-4015-a242-753fb5def6c0)
-![Screenshot 2024-09-30 212931](https://github.com/user-attachments/assets/42b3b261-1b13-4114-b82e-2743b36a4833)
+![Screenshot 2024-09-30 221846](https://github.com/user-attachments/assets/7d8068fd-ab29-4277-8696-fc994f16a006) ![Screenshot 2024-09-30 212741](https://github.com/user-attachments/assets/fff74190-0df5-4181-844b-bdcc6d884f4b) ![Screenshot 2024-09-30 212815](https://github.com/user-attachments/assets/5cb0572b-430a-419c-bc6e-45bfd157c433) ![Screenshot 2024-09-30 212828](https://github.com/user-attachments/assets/483cb1d9-bd8c-41e6-8c2c-aa349bf7576d) ![Screenshot 2024-09-30 221836](https://github.com/user-attachments/assets/2eb542c7-87d0-46f0-82af-27e8aea50684)
 
 ## Features
  * Add, Delete, and Update Notes: Users can create, modify, and delete notes easily.
@@ -15,7 +13,7 @@ Keeper is a full-stack notepad application built using the MERN stack (MongoDB, 
  * Responsive Design: The app is fully responsive, providing a seamless experience on all devices.
  * Data Encryption: Passwords are securely encrypted using bcrypt for safe storage.
  * Routing: Smooth navigation throughout the app using React Router.
- * 
+
 ## Technologies Used
 ### Frontend
  * React: Handles UI and state management.
@@ -30,10 +28,10 @@ Keeper is a full-stack notepad application built using the MERN stack (MongoDB, 
  * bcrypt: Password hashing for security.
  * Authentication: Google OAuth and local auth using passport
  * Sessions & Cookies: Secure session management.
- * 
+
 ## Installation
  * Clone the repository:
-    `git clone https://github.com/yourusername/keeper.git`
+    `git clone https://github.com/bashirafarhin/keeper.git`
     `cd keeper`
  * Install dependencies:
     * Backend:
@@ -43,7 +41,15 @@ Keeper is a full-stack notepad application built using the MERN stack (MongoDB, 
       `cd backend`
       `npm install`
 * Set up environment variables: Create a .env file in the backend folder with the following variables:
-* Set up environment variables: Create a .env file in the backend folder with the following variables:
+  * FRONTEND_URL= "http://localhost:5173"
+  * GOOGLE_PASSWORD_SECRET=
+  * MONGODB_URL=
+  * SALT_ROUNDS=
+  * SESSION_SECRET=
+* Set up environment variables: Create a .env file in the frontend folder with the following variables:
+  * VITE_BACKEND_URL= "http://localhost:3000"
+  * VITE_GOOGLE_CLIENT_ID=
+for the unfilled variables you should know about sessions, google auth( from [Passport Js](https://www.passportjs.org/))
 * Run the application:
    * Backend:
      `cd backend`
