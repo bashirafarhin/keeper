@@ -1,7 +1,7 @@
 # Keeper - Notepad Full Stack MERN Application
 Keeper is a full-stack notepad application built using the MERN stack (MongoDB, Express, React, Node.js). It allows users to securely manage notes, change backgrounds, and handle accounts with encrypted authentication and sessions. The app is responsive and provides seamless navigation, making it an ideal solution for users who want to keep their notes organized.
 
-![Screenshot 2024-09-30 212815](https://github.com/user-attachments/assets/5cb0572b-430a-419c-bc6e-45bfd157c433) ![Screenshot 2024-09-30 212828](https://github.com/user-attachments/assets/483cb1d9-bd8c-41e6-8c2c-aa349bf7576d) ![Screenshot 2024-09-30 221836](https://github.com/user-attachments/assets/2eb542c7-87d0-46f0-82af-27e8aea50684)
+![Screenshot 2024-09-30 212815](https://github.com/user-attachments/assets/5cb0572b-430a-419c-bc6e-45bfd157c433) ![Screenshot 2024-09-30 212828](https://github.com/user-attachments/assets/483cb1d9-bd8c-41e6-8c2c-aa349bf7576d) ![Screenshot 2024-09-30 212741](https://github.com/user-attachments/assets/6e649a2e-158c-4ff5-882d-45f3ac1b1ac6) ![Screenshot 2024-09-30 221836](https://github.com/user-attachments/assets/2eb542c7-87d0-46f0-82af-27e8aea50684)
 
 ## Features
  * Add, Delete, and Update Notes: Users can create, modify, and delete notes easily.
