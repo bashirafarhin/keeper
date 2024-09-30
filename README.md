@@ -58,3 +58,9 @@ for the unfilled variables you should know about sessions, google auth( from [Pa
      `cd frontend`
      `npm run dev`
 * Visit `http://localhost:5173` to use the Keeper app.
+
+## Reporting Issues and Contact
+
+I'm continuously learning and improving, so if you encounter any bugs, issues, or have suggestions, feel free to reach out!
+If you find a bug , please open an issue on the GitHub repository by navigating to the Issues tab. I'll do my best to address them as quickly as possible.
+You can also connect with me and report any issues via my [LinkedIn Profile](https://www.linkedin.com/in/bashira-farhin-62603822b/).
