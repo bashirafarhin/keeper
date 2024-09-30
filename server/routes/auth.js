@@ -95,10 +95,14 @@ authRouter.post('/auth/google',async(req,res) => {
 
 
 authRouter.get('/check', (req, res) => {
-  if (req.isAuthenticated()) {
-    return res.json({ id: req.user._id.toString(), authenticated: true });
-  } else {
-    return res.json({ authenticated: false });
+try {
+    if (req.isAuthenticated()) {
+      return res.json({ id: req.user._id.toString(), authenticated: true });
+    } else {
+      return res.json({ authenticated: false });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

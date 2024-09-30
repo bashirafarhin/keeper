@@ -2,7 +2,12 @@ import axios from "axios";
 const config={headers: {'Content-Type': 'application/json'}, withCredentials: true};
 
 export const checkAuth = async () => {
-  return await axios.get(`${import.meta.env.VITE_BACKEND_URL}/check`,config);
+  try {
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/check`, config);
+    return res;
+  } catch (error) {
+    console.error("Error in checkAuth:", error);
+  }
 };
 
 export const getAllNotes= async(id) => {
@@ -23,9 +28,10 @@ export  const addNote= async(note, id) =>  {
 
 export const UserLogin = async (data) => {
       try {
-        return await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, data, config);
+        const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, data, config);
+        return res;
       } catch (error) {
-        console.log(error);
+        console.log("error",error);
       }
 };
 

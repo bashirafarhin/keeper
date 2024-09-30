@@ -15,7 +15,7 @@ const LoginForm = () => {
     useEffect(() => {
         const isAuth = async () => {
             const response = await checkAuth();
-            if (response.data.authenticated) {
+            if (response && response.data.authenticated) {
                 navigate(`/home/${response.data.id}`);
             }
         };
@@ -41,11 +41,12 @@ const LoginForm = () => {
     const handleLogin = async (event) => {
       event.preventDefault();
       let response=await UserLogin(login);
-      if(response.data.success){
+      if(response && response.data && response.data.success){
         const id=response.data.id;
         navigate(`/home/${id}`);
       } else {
-        setErrorMessage(response.data.message);
+        let message = response==null ? "Error occurred!. Please try again later" : response.data.message;
+        setErrorMessage(message);
         setShowErrorModal(true);
       }
       setLoginDetails({
@@ -106,7 +107,7 @@ const LoginForm = () => {
           handleLoginUsingGoogle(details.email);
          }}
          onError={() => {
-         console.log("googleError")
+         console.log("googleError");
          navigate('/', { replace: true });
          }}
          />
