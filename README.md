@@ -28,37 +28,23 @@ Keeper is a full-stack notepad application built using the MERN stack (MongoDB, 
  * bcrypt: Password hashing for security.
  * Authentication: Google OAuth and local auth using passport
  * Sessions & Cookies: Secure session management.
-
+  
 ## Installation
- * Clone the repository:
-    `git clone https://github.com/bashirafarhin/keeper.git`
-    `cd keeper`
- * Install dependencies:
-    * Backend:
-      `cd backend`
-      `npm install`
-   * Frontend:
-      `cd backend`
-      `npm install`
-* Set up environment variables: Create a .env file in the backend folder with the following variables:
-  * FRONTEND_URL= "http://localhost:5173"
-  * GOOGLE_PASSWORD_SECRET=
-  * MONGODB_URL=
-  * SALT_ROUNDS=
-  * SESSION_SECRET=
-* Set up environment variables: Create a .env file in the frontend folder with the following variables:
-  * VITE_BACKEND_URL= "http://localhost:3000"
-  * VITE_GOOGLE_CLIENT_ID=
-for the unfilled variables you should know about sessions, google auth( from [Passport Js](https://www.passportjs.org/))
-* Run the application:
-   * Backend:
-     `cd backend`
-     `npm start`
-   * Frontend:
-     `cd frontend`
-     `npm run dev`
-* Visit `http://localhost:5173` to use the Keeper app.
 
+1. Clone the repository:
+   `git clone https://github.com/bashirafarhin/keeper.git`
+2. Install dependencies:
+   `cd keeper`
+3. Run the command `npm install` in both the client and server folders.
+4. Set up environment variables:
+   A sample `SampleEnvFile.txt` file is provided in the repository for your reference. You should create your own `.env` file in both directory of the project and update it with your own credentials.
+5. Run the application/client:
+   `npm run dev`
+6. Run the server on new terminal:
+   `nodemon index.js`
+7. Open your browser and go to:
+   `http://localhost:5173`
+   
 ## App Deployment
 
 This application is deployed on [Render's](https://render.com/) free tier, which may result in slower performance due to the cold start process. Free-tier servers are put to sleep after periods of inactivity (around 30 minutes), and waking them up can take approximately 30 seconds. This may cause the app to load more slowly initially.
