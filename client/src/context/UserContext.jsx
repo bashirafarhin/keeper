@@ -6,7 +6,7 @@ export const UserContextProvider = ({children}) => {
     const [ details, setDetails ] = useState({
         notes : [],
         backgroundImageIndex : 0
-    });
+});
     return (
         <UserContext.Provider value={{ details, setDetails }}>
             {children}

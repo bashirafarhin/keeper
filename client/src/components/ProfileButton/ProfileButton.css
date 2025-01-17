@@ -1,11 +1,10 @@
-.profile-button {
-    background-color: rgb(244, 241, 209) !important;
-    position: absolute;
-    padding-top: 0.5rem;
-    right: 3rem;
-    outline: none !important;
+.icon-button:hover {
+  box-shadow: inset 0 0 20px 10px rgba(244, 241, 209, 0.6);
 }
 
+.icon-button:active {
+  box-shadow: inset 0 0 25px 15px rgba(244, 241, 209, 0.8);
+}
 
 .grid-container {
     display: flex;

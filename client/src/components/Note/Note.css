@@ -16,6 +16,10 @@
     box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
   }
 
+  .note-box:hover {
+    padding: 3px 3px 3px 3px;
+  }
+
   .note-title {
     height: 18%;
     width: 98%;

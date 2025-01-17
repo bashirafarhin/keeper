@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import env from "dotenv";
 env.config();
 
-async function main() {
+export const connectToDB = async() => {
     try {
         await mongoose.connect(process.env.MONGODB_URL);
         console.log("Connection created successfully with MongoDB");
@@ -10,5 +10,3 @@ async function main() {
         console.error("Error connecting to MongoDB:", err);
     }
 }
-
-main();

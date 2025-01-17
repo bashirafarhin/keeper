@@ -1,13 +1,10 @@
-* {
-    box-sizing: border-box;
-}
-
 .login-container {
     height: 80vh;
     width: 30vw;
     min-width: 415px;
     margin: 3rem auto;
 }
+
 .login-page-logo {
   width: 100%;
   height: 20%;
@@ -18,6 +15,7 @@
   font-size: 4rem;
   text-shadow: 3px 3px grey;
 }
+
 .login-form {
     width: 100%;
     height: 80%;

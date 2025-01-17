@@ -1,92 +1,25 @@
-import axios from "axios";
-const config={headers: {'Content-Type': 'application/json'}, withCredentials: true};
+// import axios from "axios";
+// const token = localStorage.getItem('token');
 
-export const checkAuth = async () => {
-  try {
-    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/check`, config);
-    return res;
-  } catch (error) {
-    console.error("Error in checkAuth:", error);
-  }
-};
+// const config = {
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   withCredentials: true
+// };
 
-export const getAllNotes= async(id) => {
-    try {
-      return await axios.get(`${import.meta.env.VITE_BACKEND_URL}/notes/${id}`,config);
-    } catch (error) {
-      console.error(error);
-    }
-}
+// const configWithToken = {
+//   headers: {
+//     'Content-Type': 'application/json',
+//     'Authorization': `Bearer ${token}`
+//   },
+//   withCredentials: true // This ensures cookies are sent with the request if needed
+// };
 
-export  const addNote= async(note, id) =>  {
-    try {
-      return await axios.post(`${import.meta.env.VITE_BACKEND_URL}/notes/${id}`,note,config);
-    } catch (error) {
-      console.error(error);
-    }
-}
-
-export const UserLogin = async (data) => {
-      try {
-        const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, data, config);
-        return res;
-      } catch (error) {
-        console.log("error",error);
-      }
-};
-
-export const authUsingGoogle = async (email) => {
-      try {
-        return await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/google`,{email}, config);
-      } catch (error) {
-        console.log(error);
-      } 
-};
-
-export const UserRegistration= async(register) => {
-      try{
-        return await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`,register,config);
-      } catch(error) {
-        console.log(error);
-      }
-}
-
-export const deleteNote = async(index,id) => {
-  try {
-    return await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/notes/${id}/${index}`,config);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const UpdateNote = async(data,id) => {
-  try {
-    return axios.put(`${import.meta.env.VITE_BACKEND_URL}/notes/${id}`,data, config);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export const changeBackgroundImage = async(index,id) => {
-  try{
-    return await axios.post(`${import.meta.env.VITE_BACKEND_URL}/notes/background/${id}`,{index},config);
-  } catch(error) {
-    console.log(error);
-  }
-};
-
-export const userLogout = async() => {
-  try {
-    return await axios.get(`${import.meta.env.VITE_BACKEND_URL}/logout`,config);
-  } catch(error) {
-    console.log(error);
-  }
-}
-
-export const userAccountDelete = async(id) => {
-  try{
-    return await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/deleteAccount/${id}`,config);
-  } catch(error) {
-    console.log(error);
-  }
-}
+// export const userAccountDelete = async(id) => {
+//   try{
+//     return await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/deleteAccount/${id}`,configWithToken);
+//   } catch(error) {
+//     console.log(error);
+//   }
+// }

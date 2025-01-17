@@ -3,12 +3,14 @@ import { Fab, Zoom } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import "./CreateArea.css";
 import { UserContext } from "../../context/UserContext"
-import { addNote } from "../../service/api";
-import { useParams } from "react-router-dom";
+import ErrorModal from "../ErrorModal/ErrorModal";
+import axios from 'axios';
 
 const CreateArea = () => {
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const [isExpanded, setExpanded] = useState(false);
-  const { id } = useParams();
   const { setDetails } = useContext(UserContext);
   const [note, setNote] = useState({
     title: "",
@@ -27,15 +29,35 @@ const CreateArea = () => {
 
    const submitNote = async(event) => {
     event.preventDefault();
-    await addNote(note, id);
-    setDetails((prevDetails) => ({
-      ...prevDetails,
-      notes : [...prevDetails.notes, note],
-    }));
-    setNote({
-      title: "",
-      content: "",
-    });
+    const token = localStorage.getItem('token');
+    const configWithToken = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      withCredentials: true
+    };
+    try {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/addNote`,note,configWithToken);
+      
+      setDetails((prevDetails) => ({
+        ...prevDetails,
+        notes : [...prevDetails.notes, note],
+      }));
+      setNote({
+        title: "",
+        content: "",
+      });
+    } catch(error) {
+      console.log(error,"err adding note");
+      if (error.response && error.response.data) {
+        setErrorMessage( error.response.data.message || "An error occurred." );
+        setShowErrorModal(true);
+      } else {
+        setErrorMessage("Network error. Please check your connection.");
+        setShowErrorModal(true);
+      }
+    }
   }
 
   const expand = () => {
@@ -43,6 +65,7 @@ const CreateArea = () => {
   }
 
   return (
+    <>
     <div>
       <form className="create-note" >
         {isExpanded && (
@@ -70,6 +93,14 @@ const CreateArea = () => {
         </Zoom>
       </form>
     </div>
+    {showErrorModal && (
+      <ErrorModal
+        Error={errorMessage}
+        handleShow={showErrorModal}
+        handleHide={() => setShowErrorModal(false)}
+      />
+    )}
+    </>
   );
 }
 
