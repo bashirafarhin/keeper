@@ -26,11 +26,11 @@ const UserProtectedWrapper = ({ children }) => {
             backgroundImageIndex : response.data.user.backgroundImageIndex
           });
         } else {
-          console.log("Redirecting to login: no token found");
+          console.log("Redirecting to login: no token found.");
           navigate("/login");
         }
       } catch (error) {
-        console.error("Error fetching profile:", error);
+        console.error("Error fetching profile.");
         navigate("/login");
       }
     };

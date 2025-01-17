@@ -14,7 +14,6 @@ const port = process.env.PORT || 3000;
 
 connectToDB();
 
-// why this
 app.use(cookieParser());
 app.set('trust proxy', 1);
 app.use(cors({

@@ -49,7 +49,6 @@ const CreateArea = () => {
         content: "",
       });
     } catch(error) {
-      console.log(error,"err adding note");
       if (error.response && error.response.data) {
         setErrorMessage( error.response.data.message || "An error occurred." );
         setShowErrorModal(true);

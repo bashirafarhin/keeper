@@ -39,7 +39,6 @@ const BasicMenu = () => {
     setAnchorEl(null);
     try {
       const token = localStorage.getItem("token");
-      console.log(token, "above", typeof token);
       const configWithToken = {
         headers: {
           "Content-Type": "application/json",
@@ -47,17 +46,14 @@ const BasicMenu = () => {
         },
         withCredentials: true,
       };
-      console.log("hii");
-      const res = await axios.get(
+      await axios.get(
         `${import.meta.env.VITE_BACKEND_URL}/logout`,
         configWithToken
       );
-      console.log("bye");
-      console.log(res);
       localStorage.removeItem("token");
       navigate("/");
     } catch (err) {
-      console.log(err, " err during logout");
+      console.log("Error during logout.");
     }
   };
 
@@ -71,7 +67,6 @@ const BasicMenu = () => {
     setShowModalDeleteAccount(false);
     try {
       const token = localStorage.getItem("token");
-      console.log(token, "above", typeof token);
       const configWithToken = {
         headers: {
           "Content-Type": "application/json",
@@ -79,15 +74,14 @@ const BasicMenu = () => {
         },
         withCredentials: true,
       };
-      const res = await axios.delete(
+      await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/deleteAccount`,
         configWithToken
       );
       localStorage.removeItem("token");
       navigate("/");
-      console.log(res);
     } catch (err) {
-      console.log(err, "Error during deleting account");
+      console.log("Error during deleting account.");
     }
   };
 

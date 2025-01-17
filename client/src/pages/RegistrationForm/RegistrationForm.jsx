@@ -40,7 +40,6 @@ const RegistrationForm = () => {
     event.preventDefault();
     try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, register, config);
-      console.log(response);
       localStorage.setItem("token", response.data.token);
       setDetails({
         notes : response.data.user.notes,
@@ -52,14 +51,11 @@ const RegistrationForm = () => {
       });
       navigate(`/`);
     } catch (error) {
-      console.log(error);
       if (error.response && error.response.data) {
         setRegisterErrorMessage(error.response.data.message || "An error occurred during registration.");
         setRegisterShowErrorModal(true);
       } else {
-        console.log("else part");
-        setRegisterErrorMessage("Network error. Please check your connection.");
-        setRegisterShowErrorModal(true);
+        console.log('Error occured during registeration.');
       }
     }
   };
@@ -74,13 +70,11 @@ const RegistrationForm = () => {
       });
       navigate(`/`);
     } catch(error) {
-      console.log(error);
       if (error.response && error.response.data) {
         setRegisterErrorMessage(error.response.data.message || "An error occurred during registration.");
         setRegisterShowErrorModal(true);
       } else {
-        setRegisterErrorMessage("Network error. Please check your connection.");
-        setRegisterShowErrorModal(true);
+        console.log('Error occured during registeration.');
       }
     }
   };

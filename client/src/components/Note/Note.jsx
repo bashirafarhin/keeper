@@ -8,10 +8,16 @@ import ErrorModal from "../ErrorModal/ErrorModal";
 import axios from 'axios';
 
 const Note = (props) => {
+
+  const [ note, setNote ] = useState({
+    title : props.title,
+    content : props.content,
+  })
+
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [isEditable, setIsEditable] = useState(false);
+  const [isDisable, setIsDisable] = useState(true);
   const [modalShow, setModalShow] = useState(false);
   const [deleteModalShow, setDeleteModalShow] = useState(false);
   const { setDetails }=useContext(UserContext);
@@ -27,13 +33,12 @@ const Note = (props) => {
     };
     try {
       const res = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/user/deleteNote/${props.index}`, configWithToken);
-      console.log(res);
       setDetails((prevDetails) => ({
         ...prevDetails,
         notes: prevDetails.notes.filter((_,i) => i !== props.index),
       }));
     } catch(err) {
-      console.log(err," delete note");
+      console.log("Error deleting note.");
     }
   };
 
@@ -46,23 +51,15 @@ const Note = (props) => {
       },
       withCredentials: true
     };
-      setIsEditable(false);
-      const titleDiv = document.getElementsByClassName("note-title")[props.index].getElementsByTagName('h2')[0];
-      const titleText = titleDiv.innerText;
-      const contentDiv = document.getElementsByClassName("note-content")[props.index].getElementsByTagName('p')[0];
-      const contentText = contentDiv.innerText;
+      setIsDisable(true);
       try {
-        await axios.put(`${import.meta.env.VITE_BACKEND_URL}/user/updateNote/${props.index}`,{
-          title : titleText,
-          content : contentText,
-        }, configWithToken);
-
+        await axios.put(`${import.meta.env.VITE_BACKEND_URL}/user/updateNote/${props.index}`, note, configWithToken);
         setDetails((prevDetails) => {
           const updatedNotes = [...prevDetails.notes];
           updatedNotes[props.index] = {
             ...updatedNotes[props.index],
-            title: titleText,
-            content: contentText,
+            title: note.title,
+            content: note.content,
           };
           return {
             ...prevDetails,
@@ -70,27 +67,40 @@ const Note = (props) => {
           };
         });
       } catch(error) {
-        console.log(error,"err updating note");
         if (error.response && error.response.data) {
           setErrorMessage( error.response.data.message || "An error occurred." );
           setShowErrorModal(true);
         } else {
-          setErrorMessage("Network error. Please check your connection.");
-          setShowErrorModal(true);
+          console.log('Error updating note.')
         }
+        //if error show restore the original title and context
+        setNote({
+          title : props.title,
+          content : props.content,
+        })
       }
 }
 
  return <>
   <div className="note-box">
-    <div className="note-title" ><h2 className="single-line" contentEditable={isEditable} suppressContentEditableWarning={true}>{props.title}</h2></div>
+    <input
+    disabled={isDisable}
+    className={`note-title ${isDisable ? "disabled" : "editable"}`}
+    value={note.title}
+    onChange={(e) => setNote((prevNote) => ({ ...prevNote, title: e.target.value }))}
+    />
     <div className="horizontal-line"></div>
-    <div className="note-content" ><p className="note-content-p" contentEditable={isEditable} suppressContentEditableWarning={true}>{props.content}</p></div>
+    <textarea
+    disabled={isDisable}
+    className={`note-content ${isDisable ? "disabled" : "editable"}`}
+    value={note.content}
+    onChange={(e) => setNote((prevNote) => ({ ...prevNote, content: e.target.value }))}
+    />
     <div className="horizontal-line"></div>
     <div className="note-button">
     <Button variant="contained" className="note-option-button" onClick={ () => setDeleteModalShow(true)}>Delete</Button>
-      { isEditable? <Button variant="contained" className="note-option-button" color="success" onClick={handleUpdatedNote}>Save</Button> :
-      <Button variant="contained" className="note-option-button" onClick={ () => setIsEditable(true)} >Edit</Button> }
+      { !isDisable? <Button variant="contained" className="note-option-button" color="success" onClick={handleUpdatedNote}>Save</Button> :
+      <Button variant="contained" className="note-option-button" onClick={ () => setIsDisable(false)} >Edit</Button> }
       <Button variant="contained" className="note-option-button" onClick={ () => setModalShow(true)}>Expand</Button>
       <ExpandNote title={props.title} content={props.content} show={modalShow} onHide={() => setModalShow(false)} />      
     </div>

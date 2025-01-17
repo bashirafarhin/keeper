@@ -51,13 +51,11 @@ const LoginForm = () => {
       });
       navigate(`/`);
     } catch (error) {
-      console.log(error);
       if (error.response && error.response.data) {
         setErrorMessage( error.response.data.message || "An error occurred during registration." );
         setShowErrorModal(true);
       } else {
-        setErrorMessage("Network error. Please check your connection.");
-        setShowErrorModal(true);
+        console.log('Error occured during login.');
       }
     }
   };
@@ -76,13 +74,11 @@ const LoginForm = () => {
       });
       navigate(`/`);
     } catch (error) {
-      console.log(error);
       if (error.response && error.response.data) {
-        setErrorMessage( error.response.data.message || "An error occurred during registration." );
+        setErrorMessage( error.response.data.message || "An error occurred during login." );
         setShowErrorModal(true);
       } else {
-        setErrorMessage("Network error. Please check your connection.");
-        setShowErrorModal(true);
+        console.log('Error occured during login.');
       }
     }
   };
@@ -135,7 +131,7 @@ const LoginForm = () => {
               handleLoginUsingGoogle(details.email);
             }}
             onError={() => {
-              console.log("googleError");
+              console.log('Error occured on goolge server side.');
               navigate("/", { replace: true });
             }}
           />

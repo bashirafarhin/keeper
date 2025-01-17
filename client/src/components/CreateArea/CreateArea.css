@@ -17,6 +17,18 @@ form.create-note {
     font-family: inherit;
     resize: none;
   }
+
+  form.create-note textarea::-webkit-scrollbar{
+    height:100%;
+    width: 3px;
+    background-color:whitesmoke;
+    }
+
+  form.create-note textarea::-webkit-scrollbar-thumb{
+    background:rgb(160, 157, 157);
+    border-radius:5px;
+  }
+
   form.create-note button {
     position: absolute;
     right: 18px;

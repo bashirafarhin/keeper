@@ -42,7 +42,7 @@ export const updateNote = async (req, res) => {
     const newNote = req.body;
     const index = parseInt(req.params.index);
     const user = await UserModel.findById(req.user._id);
-    user.notes[index] = { ...user.notes[index], ...newNote }; // Merge new data with existing note
+    user.notes[index] = { ...user.notes[index], ...newNote };
     res.status(200).json({ user: await user.save() });
   } catch (error) {
     res.status(500).json({ message: "Error Updating Data" });

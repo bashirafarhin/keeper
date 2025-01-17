@@ -6,7 +6,7 @@ const userRouter = express.Router();
 
 
 userRouter.post('/addNote',[
-    body('title').notEmpty().withMessage('Title is required').trim().escape(), // title should not be empty
+    body('title').notEmpty().withMessage('Title is required').trim().escape(),
     body('content').optional().trim().escape(),
 ], authMiddleware, addNote);
 
