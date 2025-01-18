@@ -40,7 +40,55 @@ Keeper is a secure and full stack MERN application for managing personal notes. 
 
 ## Prerequisites
 basic knowledge of mern stack and jsonwebtoken and google developer console(this is nothing just watch a bsic youtube video)
+
 ## Installation
+#### Start Frontend
+1. Clone the Repository
+```bash
+git clone https://github.com/bashirafarhin/keeper.git
+```
+
+2. Navigate to the Project Directory
+```bash
+cd keeper/client
+```
+3. Install Frontend Dependencies
+```bash
+npm install
+```
+
+4. Configure Frontend Environment Variables
+- Create a `.env` file in the client directory
+- Copy the contents from `.SampleEnvFile.txt` present in client folder and fill it with your credentials
+
+5. Start Frontend Development Server
+```bash
+npm run dev
+```
+The frontend will run on `http://localhost:5173`
+
+#### Start Backend
+
+1. On a new terminal, Navigate to Server Directory
+```bash
+cd keeper/server
+```
+
+2. Install Backend Dependencies
+```bash
+npm install
+```
+
+3. Configure Backend Environment Variables
+- Create a `.env` file in the server directory
+- Copy the contents from `.SampleEnvFile.txt` present in server folder and fill it with your credentials
+
+4. Start Backend Server
+```bash
+nodemon index.js
+```
+The backend server will run on `http://localhost:8000`
+
 ## API Documentation
 
 #### **Notes**:
@@ -54,12 +102,9 @@ basic knowledge of mern stack and jsonwebtoken and google developer console(this
 }
 ```
 
----
 #### **Register User**
 
 **POST /register**
-
-Registers a new user.
 
 **Request:**
 
@@ -90,8 +135,6 @@ Registers a new user.
 
 **POST /login**
 
-Logs the user into the application.
-
 **Request:**
 
 ```json
@@ -120,8 +163,6 @@ Logs the user into the application.
 
 **POST /registerGoogle**
 
-Registers a new user using google auth.
-
 **Request:**
 
 ```json
@@ -149,8 +190,6 @@ Registers a new user using google auth.
 
 **POST /loginGoogle**
 
-Logs the user in via Google OAuth.
-
 **Request:**
 
 ```json
@@ -177,8 +216,7 @@ Logs the user in via Google OAuth.
 #### **Logout User**
 
 **GET /logout**
-Requires token in the header for authorization
-Logs the user out.
+- Requires token in the header for authorization
 
 **Response:**
 
@@ -190,8 +228,7 @@ Logs the user out.
 #### **Delete User Account**
 
 **DELETE /deleteAccount**
-Requires token in the header for authorization
-Deletes the user's account.
+- Requires token in the header for authorization
 
 **Response:**
 
@@ -203,8 +240,7 @@ Deletes the user's account.
 #### **Create a note**
 
 **POST /user/addNote**
-Requires token in the header for authorization
-Adds a new note.
+- Requires token in the header for authorization
 
 **Request:**
 
@@ -227,8 +263,7 @@ Adds a new note.
 #### **Update a note**
 
 **PUT /user/updateNote/:index**
-Requires token in the header for authorization
-Update an existing note.
+- Requires token in the header for authorization
 
 **Request:**
 
@@ -251,8 +286,7 @@ Update an existing note.
 #### **Update the background**
 
 **POST /user/updateBackground**
-Requires token in the header for authorization
-Add the user clicked background.
+- Requires token in the header for authorization
 
 **Request:**
 
@@ -274,8 +308,7 @@ Add the user clicked background.
 #### **Delete a note**
 
 **DELETE /user/deleteNote/:index**
-Requires token in the header for authorization
-Deletes a note.
+- Requires token in the header for authorization
 
 **Request:**
 
@@ -292,10 +325,7 @@ Deletes a note.
 #### **Gets user profile**
 
 **GET /profile**
-Requires token in the header for authorization
-gets user profile
-
-**Request:**
+- Requires token in the header for authorization
 
 **Response:**
 
@@ -319,7 +349,7 @@ Common Errors:
 
 - 400 Bad Request:
   ```json
-  { "message": "Invalid input, Custom Invalid message will be shown" }
+  { "message": "Invalid input, Custom message will be shown" }
   ```
 - 401 Unauthorized:
   ```json
@@ -359,13 +389,13 @@ Common Errors:
 
 ## Environment Variables
 
-### Client
+#### Client
 ```env
 VITE_BACKEND_URL=
 VITE_GOOGLE_CLIENT_ID=
 ```
 
-### Server
+#### Server
 ```env
 FRONTEND_URL=http://localhost:5173
 GOOGLE_PASSWORD_SECRET=
@@ -374,4 +404,5 @@ MONGODB_URL=mongodb://127.0.0.1:27017/keeper(if connecting locally)
 JWT_SECRET=secret(you can enter any random string)
 ```
 
-## License 
+## License
+[MIT License](https://github.com/bashirafarhin/keeper/tree/main?tab=MIT-1-ov-file)
