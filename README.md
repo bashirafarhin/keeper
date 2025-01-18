@@ -285,11 +285,6 @@ The backend server will run on `http://localhost:8000`
 - 200 Created:
 ```json
 {
-  "note": {
-    "_id": "63b12f4c8c2a5b2f4f123abc",
-    "title": "new Note Title",
-    "content": "new Note Content"
-  },
  "message": "Updated note successfully."
 }
 ```

@@ -9,9 +9,11 @@ import DeleteModal from "../DeleteModal/DeleteModal";
 import axios from "axios";
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import ErrorModal from "../ErrorModal/ErrorModal";
+import Loader from "../Loader/Loader";
 
 const BasicMenu = () => {
   const navigate = useNavigate();
+  const [ loading, setLoading ] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [modalShow, setModalShow] = useState(false);
   const [modalShow2, setModalShow2] = useState(false);
@@ -40,6 +42,7 @@ const BasicMenu = () => {
 
   const handleClickLogout = async () => {
     setAnchorEl(null);
+    setLoading(true);
     try {
       const token = localStorage.getItem("keeper-token");
       const configWithToken = {
@@ -58,6 +61,8 @@ const BasicMenu = () => {
     } catch (err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,6 +72,7 @@ const BasicMenu = () => {
   };
 
   const handleConfirmDeleteAccount = async () => {
+    setLoading(true);
     document.body.style.backgroundImage = "none";
     setShowModalDeleteAccount(false);
     try {
@@ -87,6 +93,8 @@ const BasicMenu = () => {
     } catch (err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -146,6 +154,7 @@ const BasicMenu = () => {
           handleHide={() => setShowErrorModal(false)}
         />
       )}
+      { loading && <Loader/> }
     </div>
   );
 };

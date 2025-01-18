@@ -5,11 +5,12 @@ import "./CreateArea.css";
 import { UserContext } from "../../context/UserContext"
 import ErrorModal from "../ErrorModal/ErrorModal";
 import axios from 'axios';
+import Loader from "../Loader/Loader";
 
 const CreateArea = () => {
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
+  const [ loading, setLoading ] = useState(false);
   const [isExpanded, setExpanded] = useState(false);
   const { setDetails } = useContext(UserContext);
   const [note, setNote] = useState({
@@ -29,6 +30,7 @@ const CreateArea = () => {
 
    const submitNote = async(event) => {
     event.preventDefault();
+    setLoading(true);
     const token = localStorage.getItem('keeper-token');
     const configWithToken = {
       headers: {
@@ -38,8 +40,7 @@ const CreateArea = () => {
       withCredentials: true
     };
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/addNote`,note,configWithToken);
-      console.log(res.data.note);
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/addNote`, note, configWithToken);
       setDetails((prevDetails) => ({
         ...prevDetails,
         notes : [...prevDetails.notes, res.data.note],
@@ -56,6 +57,8 @@ const CreateArea = () => {
         setErrorMessage("Network error. Please check your connection.");
         setShowErrorModal(true);
       }
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -99,6 +102,7 @@ const CreateArea = () => {
         handleHide={() => setShowErrorModal(false)}
       />
     )}
+    { loading && <Loader/> }
     </>
   );
 }

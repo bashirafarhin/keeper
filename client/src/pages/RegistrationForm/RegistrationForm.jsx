@@ -7,9 +7,11 @@ import { GoogleLogin } from "@react-oauth/google";
 import ErrorModal from "../../components/ErrorModal/ErrorModal.jsx"
 import { UserContext } from "../../context/UserContext.jsx";
 import axios from "axios";
+import Loader from "../../components/Loader/Loader.jsx";
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const { setDetails } = useContext(UserContext);
@@ -38,6 +40,7 @@ const RegistrationForm = () => {
 
   const handleRegistration = async (event) => {
     event.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, register, config);
       localStorage.setItem("keeper-token", response.data.token);
@@ -49,14 +52,17 @@ const RegistrationForm = () => {
         email: "",
         password: "",
       });
-      navigate(`/`);
+      navigate(`/home`);
     } catch (err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleRegistrationUsingGoogle = async (email) => {
+    setLoading(true);
     try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/registerGoogle`,{email}, config);
       localStorage.setItem("keeper-token", response.data.token);
@@ -64,10 +70,12 @@ const RegistrationForm = () => {
         notes : response.data.user.notes,
         backgroundImageIndex : response.data.user.backgroundImageIndex
       });
-      navigate(`/`);
+      navigate(`/home`);
     } catch(err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -127,12 +135,13 @@ const RegistrationForm = () => {
               handleRegistrationUsingGoogle(details.email);
             }}
             onError={() => {
-              navigate("/registration");
+              setErrorMessage('Error occured on goolge server side.');
+              setShowErrorModal(true);
             }}
           />
           <div className="login-button">
             Already Registered ?
-            <Button disableRipple onClick={() => navigate("/login")}>
+            <Button disableRipple onClick={() => navigate("/")}>
               login here
             </Button>
           </div>
@@ -144,6 +153,7 @@ const RegistrationForm = () => {
           handleHide={() => setShowErrorModal(false)}
         />
       )}
+      { loading && <Loader/> }
       </div>
     </>
   );

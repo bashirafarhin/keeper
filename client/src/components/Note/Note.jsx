@@ -6,13 +6,14 @@ import DeleteModal from "../DeleteModal/DeleteModal";
 import { UserContext } from "../../context/UserContext";
 import ErrorModal from "../ErrorModal/ErrorModal";
 import axios from 'axios';
+import Loader from "../Loader/Loader";
 
 const Note = (props) => {
   const [ note, setNote ] = useState({
     title : props.title,
     content : props.content,
   })
-
+  const [ loading, setLoading ] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -22,6 +23,7 @@ const Note = (props) => {
   const { setDetails }=useContext(UserContext);
     
   const handleDelete = async() => {
+    setLoading(true);
     const token = localStorage.getItem('keeper-token');
     const configWithToken = {
       headers: {
@@ -39,10 +41,13 @@ const Note = (props) => {
     } catch(err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleUpdatedNote = async() => {
+    setLoading(true);
     const token = localStorage.getItem('keeper-token');
     const configWithToken = {
       headers: {
@@ -53,19 +58,16 @@ const Note = (props) => {
     };
       setIsDisable(true);
       try {
-        await axios.put(`${import.meta.env.VITE_BACKEND_URL}/user/updateNote/${props.index}`, note, configWithToken);
-        console.log(props.index);
+        await axios.put(`${import.meta.env.VITE_BACKEND_URL}/user/updateNote/${props.id}`, note, configWithToken);
         setDetails((prevDetails) => {
           const updatedNotes = [...prevDetails.notes];
-          updatedNotes[props.index] = {
-            ...updatedNotes[props.index],
-            title: note.title,
-            content: note.content,
-          };
-          return {
-            ...prevDetails,
-            notes: updatedNotes,
-          };
+          const noteIndex = updatedNotes.findIndex((note) => note._id === props.id);
+            updatedNotes[noteIndex] = {
+              ...updatedNotes[noteIndex],
+              title: note.title,
+              content: note.content,
+            };
+          return { ...prevDetails, notes: updatedNotes };
         });
       } catch(err) {
         setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
@@ -75,6 +77,8 @@ const Note = (props) => {
           title : props.title,
           content : props.content,
         })
+      } finally {
+        setLoading(false);
       }
 }
 
@@ -114,7 +118,8 @@ const Note = (props) => {
           handleShow={showErrorModal}
           handleHide={() => setShowErrorModal(false)}
         />
-      )}
+  )}
+  { loading && <Loader/> }
  </>
 }
 

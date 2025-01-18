@@ -7,9 +7,11 @@ import { GoogleLogin } from "@react-oauth/google";
 import ErrorModal from "../../components/ErrorModal/ErrorModal";
 import { UserContext } from "../../context/UserContext";
 import axios from "axios";
+import Loader from "../../components/Loader/Loader";
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const { setDetails } = useContext(UserContext);
@@ -38,6 +40,7 @@ const LoginForm = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, login, config );
       localStorage.setItem("keeper-token", response.data.token);
@@ -49,14 +52,17 @@ const LoginForm = () => {
         email: "",
         password: "",
       });
-      navigate(`/`);
+      navigate(`/home`);
     } catch (err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleLoginUsingGoogle = async (email) => {
+    setLoading(true);
     try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/loginGoogle`, { email }, config );
       localStorage.setItem("keeper-token", response.data.token);
@@ -68,10 +74,12 @@ const LoginForm = () => {
         email: "",
         password: "",
       });
-      navigate(`/`);
+      navigate(`/home`);
     } catch (err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -125,7 +133,6 @@ const LoginForm = () => {
             onError={() => {
               setErrorMessage('Error occured on goolge server side.');
               setShowErrorModal(true);
-              // navigate("/", { replace: true });
             }}
           />
           <div className="register-button">
@@ -143,6 +150,7 @@ const LoginForm = () => {
           handleHide={() => setShowErrorModal(false)}
         />
       )}
+      { loading && <Loader/> }
     </>
   );
 };

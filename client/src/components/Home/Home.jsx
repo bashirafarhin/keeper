@@ -9,8 +9,9 @@ import backgroundImagesLink from "../ProfileButton/BackgroundImages.js";
 
 const Home = () => {
     const { details : { notes, backgroundImageIndex} } = useContext(UserContext);
+    const validBackgroundIndex = Math.min(backgroundImageIndex, backgroundImagesLink.length - 1);
     return (
-      <div style={{backgroundImage: `url(/backgroundImages/${backgroundImagesLink[backgroundImageIndex]})`}} className="home-container">
+      <div style={{backgroundImage: `url(/backgroundImages/${backgroundImagesLink[validBackgroundIndex]})`}} className="home-container">
       <Header/>
       <div>
       <CreateArea/>

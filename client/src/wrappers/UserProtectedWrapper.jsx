@@ -1,41 +1,53 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 import { UserContext } from "../context/UserContext";
-
+import Loader from "../components/Loader/Loader";
 
 const UserProtectedWrapper = ({ children }) => {
   const navigate = useNavigate();
   const { setDetails } = useContext(UserContext);
-  const token = localStorage.getItem('keeper-token');
+  const [loading, setLoading] = useState(false);
+  const token = localStorage.getItem("keeper-token");
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         if (token) {
           const configWithToken = {
             headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
-            withCredentials: true
+            withCredentials: true,
           };
-          const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/profile`, configWithToken );
+          const response = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/user/profile`,
+            configWithToken
+          );
           setDetails({
-            notes : response.data.user.notes,
-            backgroundImageIndex : response.data.user.backgroundImageIndex
+            notes: response.data.user.notes,
+            backgroundImageIndex: response.data.user.backgroundImageIndex,
           });
         } else {
-          navigate("/login");
+          navigate("/");
         }
       } catch (error) {
-        navigate("/login");
+        navigate("/");
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
   }, [token]);
- 
-  return <>{children}</>;
+
+  return (
+    <>
+      {children}
+      {loading && <Loader />}
+    </>
+  );
 };
 
 export default UserProtectedWrapper;

@@ -5,14 +5,16 @@ import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import ErrorModal from "../ErrorModal/ErrorModal";
 import axios from "axios";
+import Loader from "../Loader/Loader";
 
 const MydModalWithGrid = (props) => {
-
+  const [ loading, setLoading ] = useState(false);
   const { setDetails } = useContext(UserContext);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleBackgroundImage = async (index) => {
+    setLoading(true);
     const token = localStorage.getItem("keeper-token");
     const configWithToken = {
       headers: {
@@ -30,6 +32,8 @@ const MydModalWithGrid = (props) => {
     } catch(err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -71,6 +75,7 @@ const MydModalWithGrid = (props) => {
           handleHide={() => setShowErrorModal(false)}
         />
       )}
+      { loading && <Loader/> }
     </Modal>
   );
 };

@@ -12,15 +12,15 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<LoginForm />} />
           <Route
-            path="/"
+            path="/home"
             element={
               <UserProtectedWrapper>
                 <Home />
               </UserProtectedWrapper>
             }
           />
-          <Route path="/login" element={<LoginForm />} />
           <Route path="/registration" element={<RegistrationForm />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

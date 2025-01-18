@@ -39,14 +39,13 @@ export const updateNote = async (req, res) => {
     return res.status(400).json({ message : errors.array()[0].msg });
   }
   try {
-    const newNote = req.body;
-    const noteId = parseInt(req.params.index);
+    const { title, content } = req.body;
+    const noteId = parseInt(req.params.id);
     const user = await UserModel.findById(req.user._id);
     const noteIndex = user.notes.findIndex((note) => note._id.toString() === noteId);
     user.notes[noteIndex] = { ...user.notes[noteIndex], title, content };
     await user.save();
-    const updatedNote = user.notes[noteIndex];
-    res.status(200).json({ note : updatedNote, message: "Updated note successfully." });
+    res.status(200).json({ message: "Updated note successfully." });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong." });
   }

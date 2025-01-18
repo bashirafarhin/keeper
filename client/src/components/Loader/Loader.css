@@ -1,0 +1,29 @@
+.loader {
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #25b09b;
+  --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+  mask: var(--_m);
+  -webkit-mask-composite: source-out;
+  mask-composite: subtract;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: l3 1s infinite linear;
+  z-index: 9999; /* Ensure it appears on top */
+}
+
+/* Rotation animation (only for rotation, no position change) */
+@keyframes l3 {
+  0% {
+    transform: rotate(0deg); /* Initial state */
+  }
+  100% {
+    transform: rotate(360deg); /* Full rotation */
+  }
+}
