@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 
 const noteSchema = new mongoose.Schema({
     title: {
-        type: String,
+        type: mongoose.Schema.Types.Mixed,
         required: [true, 'Title is required'],
         trim: true,
     },
     content: {
-        type: String,
+        type: mongoose.Schema.Types.Mixed,
     },
 });
 

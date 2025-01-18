@@ -29,7 +29,7 @@ const CreateArea = () => {
 
    const submitNote = async(event) => {
     event.preventDefault();
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('keeper-token');
     const configWithToken = {
       headers: {
         'Content-Type': 'application/json',
@@ -38,11 +38,11 @@ const CreateArea = () => {
       withCredentials: true
     };
     try {
-      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/addNote`,note,configWithToken);
-      
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/addNote`,note,configWithToken);
+      console.log(res.data.note);
       setDetails((prevDetails) => ({
         ...prevDetails,
-        notes : [...prevDetails.notes, note],
+        notes : [...prevDetails.notes, res.data.note],
       }));
       setNote({
         title: "",

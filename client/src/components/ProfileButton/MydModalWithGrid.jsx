@@ -13,7 +13,7 @@ const MydModalWithGrid = (props) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleBackgroundImage = async (index) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("keeper-token");
     const configWithToken = {
       headers: {
         "Content-Type": "application/json",

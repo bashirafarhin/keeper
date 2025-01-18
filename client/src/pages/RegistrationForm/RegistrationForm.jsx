@@ -40,7 +40,7 @@ const RegistrationForm = () => {
     event.preventDefault();
     try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, register, config);
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("keeper-token", response.data.token);
       setDetails({
         notes : response.data.user.notes,
         backgroundImageIndex : response.data.user.backgroundImageIndex
@@ -59,7 +59,7 @@ const RegistrationForm = () => {
   const handleRegistrationUsingGoogle = async (email) => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/registerGoogle`,{email}, config);
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("keeper-token", response.data.token);
       setDetails({
         notes : response.data.user.notes,
         backgroundImageIndex : response.data.user.backgroundImageIndex

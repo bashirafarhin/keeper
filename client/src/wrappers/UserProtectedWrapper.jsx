@@ -7,7 +7,7 @@ import { UserContext } from "../context/UserContext";
 const UserProtectedWrapper = ({ children }) => {
   const navigate = useNavigate();
   const { setDetails } = useContext(UserContext);
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('keeper-token');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,11 +26,9 @@ const UserProtectedWrapper = ({ children }) => {
             backgroundImageIndex : response.data.user.backgroundImageIndex
           });
         } else {
-          console.log("Redirecting to login: no token found.");
           navigate("/login");
         }
       } catch (error) {
-        console.error("Error fetching profile.");
         navigate("/login");
       }
     };

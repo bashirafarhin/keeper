@@ -8,7 +8,6 @@ import ErrorModal from "../ErrorModal/ErrorModal";
 import axios from 'axios';
 
 const Note = (props) => {
-
   const [ note, setNote ] = useState({
     title : props.title,
     content : props.content,
@@ -23,7 +22,7 @@ const Note = (props) => {
   const { setDetails }=useContext(UserContext);
     
   const handleDelete = async() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('keeper-token');
     const configWithToken = {
       headers: {
         'Content-Type': 'application/json',
@@ -32,10 +31,10 @@ const Note = (props) => {
       withCredentials: true
     };
     try {
-      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/user/deleteNote/${props.index}`, configWithToken);
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/user/deleteNote/${props.id}`, configWithToken);
       setDetails((prevDetails) => ({
         ...prevDetails,
-        notes: prevDetails.notes.filter((_,i) => i !== props.index),
+        notes: prevDetails.notes.filter((note) => note._id !== props.id), // Use noteId to filter
       }));
     } catch(err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
@@ -44,7 +43,7 @@ const Note = (props) => {
   };
 
   const handleUpdatedNote = async() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('keeper-token');
     const configWithToken = {
       headers: {
         'Content-Type': 'application/json',
@@ -55,6 +54,7 @@ const Note = (props) => {
       setIsDisable(true);
       try {
         await axios.put(`${import.meta.env.VITE_BACKEND_URL}/user/updateNote/${props.index}`, note, configWithToken);
+        console.log(props.index);
         setDetails((prevDetails) => {
           const updatedNotes = [...prevDetails.notes];
           updatedNotes[props.index] = {
@@ -103,6 +103,7 @@ const Note = (props) => {
     </div>
   </div>
   <DeleteModal
+    heading="Are you sure you want to delete?"
     handleShow={deleteModalShow}
     handleHide={ () => setDeleteModalShow(false) }
     yesConfirmation={ () => {setDeleteModalShow(false); handleDelete()} }

@@ -40,7 +40,7 @@ const LoginForm = () => {
     event.preventDefault();
     try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, login, config );
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("keeper-token", response.data.token);
       setDetails({
         notes : response.data.user.notes,
         backgroundImageIndex : response.data.user.backgroundImageIndex
@@ -59,7 +59,7 @@ const LoginForm = () => {
   const handleLoginUsingGoogle = async (email) => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/loginGoogle`, { email }, config );
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("keeper-token", response.data.token);
       setDetails({
         notes : response.data.user.notes,
         backgroundImageIndex : response.data.user.backgroundImageIndex

@@ -39,7 +39,7 @@ Keeper is a secure and full stack MERN application for managing personal notes. 
 - Authentication: jsonwebtoken
 
 ## Prerequisites
-basic knowledge of mern stack and jsonwebtoken and google developer console(this is nothing just watch a bsic youtube video)
+basic knowledge of mern stack and jsonwebtoken and google developer console
 
 ## Installation
 #### Start Frontend
@@ -256,13 +256,19 @@ The backend server will run on `http://localhost:8000`
 - 201 Created:
 ```json
 {
+  "note": {
+    "_id": "63b12f4c8c2a5b2f4f123abc",
+    "title": "Sample Title",
+    "content": "Sample Content"
+  },
  "message": "Added note successfully."
 }
 ```
 
 #### **Update a note**
 
-**PUT /user/updateNote/:index**
+**PUT /user/updateNote/:id**
+- id represents mongodb id of the note in the database
 - Requires token in the header for authorization
 
 **Request:**
@@ -279,6 +285,11 @@ The backend server will run on `http://localhost:8000`
 - 200 Created:
 ```json
 {
+  "note": {
+    "_id": "63b12f4c8c2a5b2f4f123abc",
+    "title": "new Note Title",
+    "content": "new Note Content"
+  },
  "message": "Updated note successfully."
 }
 ```
@@ -307,7 +318,8 @@ The backend server will run on `http://localhost:8000`
 
 #### **Delete a note**
 
-**DELETE /user/deleteNote/:index**
+**DELETE /user/deleteNote/:id**
+- id represents mongodb id of the note in the database
 - Requires token in the header for authorization
 
 **Request:**

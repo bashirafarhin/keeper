@@ -8,12 +8,12 @@ export const addNote = async (req, res) => {
   }
   try {
     const { title, content } = req.body;
-    await UserModel.findOneAndUpdate(
+    const user = await UserModel.findOneAndUpdate(
       { email: req.user.email },
       { $push: { notes: { title, content } } },
       { new: true }
     );
-    res.status(201).json({ message: "Added note successfully." });
+    res.status(201).json({ note : user.notes[user.notes.length - 1], message: "Added note successfully." });
   } catch (err) {
     res.status(500).json({ message: "Something went wrong." });
   }
@@ -40,11 +40,13 @@ export const updateNote = async (req, res) => {
   }
   try {
     const newNote = req.body;
-    const index = parseInt(req.params.index);
+    const noteId = parseInt(req.params.index);
     const user = await UserModel.findById(req.user._id);
-    user.notes[index] = { ...user.notes[index], ...newNote };
+    const noteIndex = user.notes.findIndex((note) => note._id.toString() === noteId);
+    user.notes[noteIndex] = { ...user.notes[noteIndex], title, content };
     await user.save();
-    res.status(200).json({ message: "Updated note successfully." });
+    const updatedNote = user.notes[noteIndex];
+    res.status(200).json({ note : updatedNote, message: "Updated note successfully." });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong." });
   }
@@ -56,10 +58,11 @@ export const deleteNote = async(req,res) =>{
     return res.status(400).json({ message : errors.array()[0].msg });
   }
   try {
-    const user = await UserModel.findById(req.user._id);
-    const index = parseInt(req.params.index);
-    user.notes.splice(index, 1);
-    const updatedUser = await user.save();
+    await UserModel.findOneAndUpdate(
+      { _id: req.user._id, "notes._id": req.params.id },
+      { $pull: { notes: { _id: req.params.id } } },
+      { new: true }
+    );
     res.status(200).json({ message: 'Note deleted successfully' });
 } catch (err) {
     return res.status(500).json({ message: "Something went wrong." });

@@ -41,7 +41,7 @@ const BasicMenu = () => {
   const handleClickLogout = async () => {
     setAnchorEl(null);
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("keeper-token");
       const configWithToken = {
         headers: {
           "Content-Type": "application/json",
@@ -53,7 +53,7 @@ const BasicMenu = () => {
         `${import.meta.env.VITE_BACKEND_URL}/logout`,
         configWithToken
       );
-      localStorage.removeItem("token");
+      localStorage.removeItem("keeper-token");
       navigate("/");
     } catch (err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
@@ -70,7 +70,7 @@ const BasicMenu = () => {
     document.body.style.backgroundImage = "none";
     setShowModalDeleteAccount(false);
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("keeper-token");
       const configWithToken = {
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const BasicMenu = () => {
         `${import.meta.env.VITE_BACKEND_URL}/deleteAccount`,
         configWithToken
       );
-      localStorage.removeItem("token");
+      localStorage.removeItem("keeper-token");
       navigate("/");
     } catch (err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
@@ -121,7 +121,6 @@ const BasicMenu = () => {
         }}
       >
         <MenuItem onClick={handleBackgroundImage}>Change background</MenuItem>
-
         <MenuItem onClick={handleClickLogout}>Logout</MenuItem>
         <MenuItem onClick={handleClickDeleteAccount}>Delete Account</MenuItem>
         <MenuItem onClick={handleClickAboutApp}>About App</MenuItem>
@@ -135,6 +134,7 @@ const BasicMenu = () => {
         onHide2={() => setModalShow2(false)}
       />
       <DeleteModal
+        heading="Confirm deletion? This action cannot be undone."
         handleShow={showModalDeleteAccount}
         handleHide={() => setShowModalDeleteAccount(false)}
         yesConfirmation={() => handleConfirmDeleteAccount()}

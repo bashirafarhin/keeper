@@ -17,7 +17,7 @@ const DeleteModal = (props) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body style={{ margin: 'auto'}}>
-        <h5>Are you sure you want to delete?</h5>
+        <h5>{props.heading}</h5>
       </Modal.Body>
       <Modal.Footer style={{ display: 'flex', justifyContent: 'space-evenly'}}>
         <Button className="custom-button-green" onClick={props.handleHide}>No, cancel</Button>
