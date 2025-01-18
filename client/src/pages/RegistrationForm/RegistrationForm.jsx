@@ -10,8 +10,8 @@ import axios from "axios";
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
-  const [showRegisterErrorModal, setRegisterShowErrorModal] = useState(false);
-  const [registerErrorMessage, setRegisterErrorMessage] = useState("");
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const { setDetails } = useContext(UserContext);
   const [register, setRegistrationDetails] = useState({
     email: "",
@@ -50,13 +50,9 @@ const RegistrationForm = () => {
         password: "",
       });
       navigate(`/`);
-    } catch (error) {
-      if (error.response && error.response.data) {
-        setRegisterErrorMessage(error.response.data.message || "An error occurred during registration.");
-        setRegisterShowErrorModal(true);
-      } else {
-        console.log('Error occured during registeration.');
-      }
+    } catch (err) {
+      setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
+      setShowErrorModal(true);
     }
   };
 
@@ -69,13 +65,9 @@ const RegistrationForm = () => {
         backgroundImageIndex : response.data.user.backgroundImageIndex
       });
       navigate(`/`);
-    } catch(error) {
-      if (error.response && error.response.data) {
-        setRegisterErrorMessage(error.response.data.message || "An error occurred during registration.");
-        setRegisterShowErrorModal(true);
-      } else {
-        console.log('Error occured during registeration.');
-      }
+    } catch(err) {
+      setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
+      setShowErrorModal(true);
     }
   };
 
@@ -145,13 +137,13 @@ const RegistrationForm = () => {
             </Button>
           </div>
         </form>
-        {showRegisterErrorModal && (
-          <ErrorModal
-            Error={registerErrorMessage}
-            handleShow={showRegisterErrorModal}
-            handleHide={() => setRegisterShowErrorModal(false)}
-          />
-        )}
+        {showErrorModal && (
+        <ErrorModal
+          Error={errorMessage}
+          handleShow={showErrorModal}
+          handleHide={() => setShowErrorModal(false)}
+        />
+      )}
       </div>
     </>
   );

@@ -19,7 +19,7 @@ export const authMiddleware = async(req, res, next) => {
         const user = await UserModel.findById(decoded._id);
         req.user = user;
         next();
-    } catch (error) {
-        return res.status(400).json({ message : "Unauthorized"});
+    } catch (err) {
+        return res.status(500).json({ message: "Something went wrong." });
     }
 }

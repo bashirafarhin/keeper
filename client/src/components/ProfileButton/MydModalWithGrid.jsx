@@ -1,12 +1,16 @@
+import { useState } from "react";
 import { Button, Container, Modal } from "react-bootstrap";
 import backgroundImagesLink from "./BackgroundImages";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
+import ErrorModal from "../ErrorModal/ErrorModal";
 import axios from "axios";
 
 const MydModalWithGrid = (props) => {
 
   const { setDetails } = useContext(UserContext);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleBackgroundImage = async (index) => {
     const token = localStorage.getItem("token");
@@ -17,11 +21,16 @@ const MydModalWithGrid = (props) => {
       },
       withCredentials: true,
     };
-    setDetails((prevDetails) => ({
-      ...prevDetails,
-      backgroundImageIndex: index,
-    }));
-    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/updateBackground`, { index }, configWithToken );
+    try {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/updateBackground`, { index }, configWithToken );
+      setDetails((prevDetails) => ({
+        ...prevDetails,
+        backgroundImageIndex: index,
+      }));
+    } catch(err) {
+      setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
+      setShowErrorModal(true);
+    }
   };
 
   return (
@@ -55,6 +64,13 @@ const MydModalWithGrid = (props) => {
       <Modal.Footer>
         <Button onClick={props.onHide2}>Close</Button>
       </Modal.Footer>
+      {showErrorModal && (
+        <ErrorModal
+          Error={errorMessage}
+          handleShow={showErrorModal}
+          handleHide={() => setShowErrorModal(false)}
+        />
+      )}
     </Modal>
   );
 };

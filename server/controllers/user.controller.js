@@ -8,28 +8,28 @@ export const addNote = async (req, res) => {
   }
   try {
     const { title, content } = req.body;
-    const updatedUser = await UserModel.findOneAndUpdate(
+    await UserModel.findOneAndUpdate(
       { email: req.user.email },
       { $push: { notes: { title, content } } },
       { new: true }
     );
-    res.status(200).json({ user : updatedUser });
-  } catch (error) {
-    res.status(500).json({ message: "Error Saving Data" });
+    res.status(201).json({ message: "Added note successfully." });
+  } catch (err) {
+    res.status(500).json({ message: "Something went wrong." });
   }
 };
 
 export const updateBackgroundImage = async (req, res) => {
   try {
     const { index } = req.body;
-    const updatedUser = await UserModel.findOneAndUpdate(
+    await UserModel.findOneAndUpdate(
       { _id: req.user._id },
       { backgroundImageIndex: index },
       { new: true }
     );
-    res.status(200).json({ user : updatedUser });
+    res.status(200).json({ message: "Updated background successfully." });
   } catch {
-    res.status(500).json({ message: "Error Updating background" });
+    res.status(500).json({ message: "Something went wrong." });
   }
 };
 
@@ -43,9 +43,10 @@ export const updateNote = async (req, res) => {
     const index = parseInt(req.params.index);
     const user = await UserModel.findById(req.user._id);
     user.notes[index] = { ...user.notes[index], ...newNote };
-    res.status(200).json({ user: await user.save() });
+    await user.save();
+    res.status(200).json({ message: "Updated note successfully." });
   } catch (error) {
-    res.status(500).json({ message: "Error Updating Data" });
+    res.status(500).json({ message: "Something went wrong." });
   }
 };
 
@@ -59,12 +60,16 @@ export const deleteNote = async(req,res) =>{
     const index = parseInt(req.params.index);
     user.notes.splice(index, 1);
     const updatedUser = await user.save();
-    res.status(200).json({ message: 'Note deleted successfully', user: updatedUser });
-} catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(200).json({ message: 'Note deleted successfully' });
+} catch (err) {
+    return res.status(500).json({ message: "Something went wrong." });
 }
 }
 
 export const getUserProfile = async(req,res) => {
-  return await res.status(200).json({user : req.user});
+  try {
+    return await res.status(200).json({user : req.user});
+  } catch(err) {
+    return res.status(500).json({ message: "Something went wrong." });
+  }
 }

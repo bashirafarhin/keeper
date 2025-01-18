@@ -24,6 +24,10 @@ app.use(cors({
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.json());
 
+app.get('/',(req,res)=>{
+    res.send('Hello developer.')
+})
+
 //routes
 app.use('/user',userRouter);
 app.use('/',authRouter);

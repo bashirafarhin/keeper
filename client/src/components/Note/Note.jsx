@@ -32,13 +32,14 @@ const Note = (props) => {
       withCredentials: true
     };
     try {
-      const res = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/user/deleteNote/${props.index}`, configWithToken);
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/user/deleteNote/${props.index}`, configWithToken);
       setDetails((prevDetails) => ({
         ...prevDetails,
         notes: prevDetails.notes.filter((_,i) => i !== props.index),
       }));
     } catch(err) {
-      console.log("Error deleting note.");
+      setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
+      setShowErrorModal(true);
     }
   };
 
@@ -66,13 +67,9 @@ const Note = (props) => {
             notes: updatedNotes,
           };
         });
-      } catch(error) {
-        if (error.response && error.response.data) {
-          setErrorMessage( error.response.data.message || "An error occurred." );
-          setShowErrorModal(true);
-        } else {
-          console.log('Error updating note.')
-        }
+      } catch(err) {
+        setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
+        setShowErrorModal(true);
         //if error show restore the original title and context
         setNote({
           title : props.title,

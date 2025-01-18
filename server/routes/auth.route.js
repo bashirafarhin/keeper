@@ -7,12 +7,12 @@ const authRouter = express.Router();
 
 authRouter.post('/register',[
     body('email').isEmail().withMessage('Invalid Email'),
-    body('password').isLength({ min: 3 }).withMessage('Password must be of at least 3 characters long')
+    body('password').isLength({ min: 3 }).withMessage('Password must be at least 3 characters.')
 ], registerUser);
 
 authRouter.post('/login',[
     body('email').isEmail().withMessage('Invalid Email'),
-    body('password').isLength({ min: 3 }).withMessage('Password must be of at least 3 characters long')
+    body('password').isLength({ min: 3 }).withMessage('Password must be at least 3 characters.')
 ], loginUser);
 
 authRouter.post('/registerGoogle',[

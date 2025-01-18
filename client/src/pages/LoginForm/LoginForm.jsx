@@ -50,13 +50,9 @@ const LoginForm = () => {
         password: "",
       });
       navigate(`/`);
-    } catch (error) {
-      if (error.response && error.response.data) {
-        setErrorMessage( error.response.data.message || "An error occurred during registration." );
-        setShowErrorModal(true);
-      } else {
-        console.log('Error occured during login.');
-      }
+    } catch (err) {
+      setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
+      setShowErrorModal(true);
     }
   };
 
@@ -73,13 +69,9 @@ const LoginForm = () => {
         password: "",
       });
       navigate(`/`);
-    } catch (error) {
-      if (error.response && error.response.data) {
-        setErrorMessage( error.response.data.message || "An error occurred during login." );
-        setShowErrorModal(true);
-      } else {
-        console.log('Error occured during login.');
-      }
+    } catch (err) {
+      setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
+      setShowErrorModal(true);
     }
   };
 
@@ -131,8 +123,9 @@ const LoginForm = () => {
               handleLoginUsingGoogle(details.email);
             }}
             onError={() => {
-              console.log('Error occured on goolge server side.');
-              navigate("/", { replace: true });
+              setErrorMessage('Error occured on goolge server side.');
+              setShowErrorModal(true);
+              // navigate("/", { replace: true });
             }}
           />
           <div className="register-button">

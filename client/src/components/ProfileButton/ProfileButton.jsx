@@ -8,6 +8,7 @@ import { googleLogout } from "@react-oauth/google";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import axios from "axios";
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import ErrorModal from "../ErrorModal/ErrorModal";
 
 const BasicMenu = () => {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ const BasicMenu = () => {
   const [modalShow, setModalShow] = useState(false);
   const [modalShow2, setModalShow2] = useState(false);
   const [showModalDeleteAccount, setShowModalDeleteAccount] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const open = Boolean(anchorEl);
 
@@ -53,7 +56,8 @@ const BasicMenu = () => {
       localStorage.removeItem("token");
       navigate("/");
     } catch (err) {
-      console.log("Error during logout.");
+      setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
+      setShowErrorModal(true);
     }
   };
 
@@ -81,7 +85,8 @@ const BasicMenu = () => {
       localStorage.removeItem("token");
       navigate("/");
     } catch (err) {
-      console.log("Error during deleting account.");
+      setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
+      setShowErrorModal(true);
     }
   };
 
@@ -134,6 +139,13 @@ const BasicMenu = () => {
         handleHide={() => setShowModalDeleteAccount(false)}
         yesConfirmation={() => handleConfirmDeleteAccount()}
       />
+       {showErrorModal && (
+        <ErrorModal
+          Error={errorMessage}
+          handleShow={showErrorModal}
+          handleHide={() => setShowErrorModal(false)}
+        />
+      )}
     </div>
   );
 };

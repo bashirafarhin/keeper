@@ -1,56 +1,377 @@
-# Keeper - Notepad Full Stack MERN Application
-Keeper is a full-stack notepad application built using the MERN stack (MongoDB, Express, React, Node.js). It allows users to securely manage notes, change backgrounds, and handle accounts with encrypted authentication and sessions. The app is responsive and provides seamless navigation, making it an ideal solution for users who want to keep their notes organized.
+# Keeper - Notes Management Full stack project
 
-![Screenshot 2024-09-30 212815](https://github.com/user-attachments/assets/5cb0572b-430a-419c-bc6e-45bfd157c433) ![Screenshot 2024-09-30 212828](https://github.com/user-attachments/assets/483cb1d9-bd8c-41e6-8c2c-aa349bf7576d) ![Screenshot 2024-09-30 212741](https://github.com/user-attachments/assets/6e649a2e-158c-4ff5-882d-45f3ac1b1ac6) ![Screenshot 2024-09-30 221836](https://github.com/user-attachments/assets/2eb542c7-87d0-46f0-82af-27e8aea50684)
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [API Documentation](#api-documentation)
+- [Error Handling](#error-handling)
+- [Environment Variables](#environment-variables)
+- [License](#license)
+
+## Overview
+Keeper is a secure and full stack MERN application for managing personal notes. It provides comprehensive note-taking functionality with user authentication and data persistence.
+![Image](https://github.com/user-attachments/assets/58872cf9-541a-44e7-b10b-d85ed87268d2)
+![Image](https://github.com/user-attachments/assets/ef1b8ce1-1dfd-458c-8fbe-1c67a2b8573b)
 
 ## Features
- * Add, Delete, and Update Notes: Users can create, modify, and delete notes easily.
- * User Authentication: Google Authentication: Sign in with your Google account.
- * Custom Authentication: Sign up, login, and manage accounts with password encryption using bcrypt.
- * Background Customization: Users can change the application's background to their preference.
- * Account Management: Users can delete their accounts securely.
- * Sessions & Cookies: User sessions are maintained using cookies, ensuring secure authentication and session handling.
- * Responsive Design: The app is fully responsive, providing a seamless experience on all devices.
- * Data Encryption: Passwords are securely encrypted using bcrypt for safe storage.
- * Routing: Smooth navigation throughout the app using React Router.
+- authentication using local login and using google oaouth
+- authorization using jsonwebtoken
+- CRUD operations of notes
+- responsive design
+- changing background
 
-## Technologies Used
+## Tech Stack
 ### Frontend
- * React: Handles UI and state management.
- * Material-UI (MUI): Provides modern, responsive components and styling.
- * React Router: Enables seamless routing and navigation.
- * Vite: A fast build tool and development server.
- * HTML, CSS, JavaScript: Used for structure, styling, and interactivity.
+- react: for creating UI the tntirement of the react is vite
+- react-router-dom: for navigation
+- axios: for creating APIs
+- bootstrap: for some prebuild component
+- react mui: for some prebuild component
+- HTML, css and js for styling structuring
 ### Backend
- * Node.js: Server-side runtime environment.
- * Express: Web framework for building the REST API.
- * MongoDB: NoSQL database for storing user information and notes.
- * bcrypt: Password hashing for security.
- * Authentication: Google OAuth and local auth using passport
- * Sessions & Cookies: Secure session management.
-  
+- Node.js: Server-side runtime environment.
+- Express: Web framework for building the REST API.
+- MongoDB: NoSQL database for storing user information and notes.
+- bcrypt: Password hashing for security.
+- Authentication: jsonwebtoken
+
+## Prerequisites
+basic knowledge of mern stack and jsonwebtoken and google developer console(this is nothing just watch a bsic youtube video)
 ## Installation
+## API Documentation
 
-1. Clone the repository:
-   `git clone https://github.com/bashirafarhin/keeper.git`
-2. Install dependencies:
-   `cd keeper`
-3. Run the command `npm install` in both the client and server folders.
-4. Set up environment variables:
-   A sample `SampleEnvFile.txt` file is provided in the repository for your reference. You should create your own `.env` file in both directory of the project and update it with your own credentials.
-5. Run the application/client:
-   `npm run dev`
-6. Run the server on new terminal:
-   `nodemon index.js`
-7. Open your browser and go to:
-   `http://localhost:5173`
-   
-## App Deployment
+#### **Notes**:
 
-This application is deployed on [Render's](https://render.com/) free tier, which may result in slower performance due to the cold start process. Free-tier servers are put to sleep after periods of inactivity (around 30 minutes), and waking them up can take approximately 30 seconds. This may cause the app to load more slowly initially.
+- All routes requiring authentication expect a valid token to be sent in the `Authorization` header as `Bearer <jwt-token>`.
+- **Headers:**
 
-## Reporting Issues and Contact
+```json
+{
+  "Authorization": "Bearer <jwt-token>"
+}
+```
 
-I'm continuously learning and improving, so if you encounter any bugs, issues, or have suggestions, feel free to reach out!.
-If you find a bug , please open an issue on the GitHub repository by navigating to the Issues tab. I'll do my best to address them as quickly as possible.
-You can also connect with me and report any issues via my [LinkedIn Profile](https://www.linkedin.com/in/bashira-farhin-62603822b/).
+---
+#### **Register User**
+
+**POST /register**
+
+Registers a new user.
+
+**Request:**
+
+```json
+{
+  "email": "user@example.com",
+  "password": "userPassword123"
+}
+```
+
+**Response:**
+
+- 201 Created:
+
+```json
+{
+  "token": "<jwt-token>",
+  "user": {
+    "_id": "<user-id>",
+    "email": "user@example.com",
+    "notes": ["consist notes objects"],
+    "backgroundImageIndex": 0
+  }
+}
+```
+
+#### **Login User**
+
+**POST /login**
+
+Logs the user into the application.
+
+**Request:**
+
+```json
+{
+  "email": "user@example.com",
+  "password": "userPassword123"
+}
+```
+
+**Response:**
+
+- 200 Created:
+```json
+{
+  "token": "<jwt-token>",
+  "user": {
+  "_id": "<user-id>",
+  "email": "user@example.com",
+  "notes": ["consist notes objects"],
+  "backgroundImageIndex": 0
+  }
+}
+```
+
+#### **Register User Using Google**
+
+**POST /registerGoogle**
+
+Registers a new user using google auth.
+
+**Request:**
+
+```json
+{
+  "email": "user@example.com"
+}
+```
+
+**Response:**
+
+- 201 Created:
+```json
+{
+  "token": "<jwt-token>",
+  "user": {
+  "_id": "<user-id>",
+  "email": "user@example.com",
+  "notes": ["consist notes objects"],
+  "backgroundImageIndex": 0
+  }
+}
+```
+
+#### **Login Using Google**
+
+**POST /loginGoogle**
+
+Logs the user in via Google OAuth.
+
+**Request:**
+
+```json
+{
+  "email": "john@doe.gmail.com"
+}
+```
+
+**Response:**
+
+- 200 OK:
+```json
+{
+  "token": "<jwt-token>",
+  "user": {
+  "_id": "<user-id>",
+  "email": "user@example.com",
+  "notes": ["consist notes objects"],
+  "backgroundImageIndex": 0
+  }
+}
+```
+
+#### **Logout User**
+
+**GET /logout**
+Requires token in the header for authorization
+Logs the user out.
+
+**Response:**
+
+- 200 OK:
+```json
+ { "message": "Logged Out Successfully" }
+```
+
+#### **Delete User Account**
+
+**DELETE /deleteAccount**
+Requires token in the header for authorization
+Deletes the user's account.
+
+**Response:**
+
+- 200 OK:
+```json
+ { "message": "Account Deleted Successfully" }
+```
+
+#### **Create a note**
+
+**POST /user/addNote**
+Requires token in the header for authorization
+Adds a new note.
+
+**Request:**
+
+```json
+{
+  "title": "title",
+  "content": "content"
+}
+```
+
+**Response:**
+
+- 201 Created:
+```json
+{
+ "message": "Added note successfully."
+}
+```
+
+#### **Update a note**
+
+**PUT /user/updateNote/:index**
+Requires token in the header for authorization
+Update an existing note.
+
+**Request:**
+
+```json
+{
+  "title": "title",
+  "content": "content"
+}
+```
+
+**Response:**
+
+- 200 Created:
+```json
+{
+ "message": "Updated note successfully."
+}
+```
+
+#### **Update the background**
+
+**POST /user/updateBackground**
+Requires token in the header for authorization
+Add the user clicked background.
+
+**Request:**
+
+```json
+{
+  "index": "index"
+}
+```
+
+**Response:**
+
+- 200 Created:
+```json
+{
+ "message": "Updated background successfully."
+}
+```
+
+#### **Delete a note**
+
+**DELETE /user/deleteNote/:index**
+Requires token in the header for authorization
+Deletes a note.
+
+**Request:**
+
+**Response:**
+
+- 200 Created:
+
+```json
+{
+ "message": "Note deleted successfully"
+}
+```
+
+#### **Gets user profile**
+
+**GET /profile**
+Requires token in the header for authorization
+gets user profile
+
+**Request:**
+
+**Response:**
+
+- 200 Created:
+```json
+ {
+ "user": {
+  "_id": "<user-id>",
+  "email": "user@example.com",
+  "notes": ["contains notes object"],
+  "backgroundImageIndex": "default background index or user defined"
+  }
+ }
+ ```
+
+---
+
+## Error Handling
+
+Common Errors:
+
+- 400 Bad Request:
+  ```json
+  { "message": "Invalid input, Custom Invalid message will be shown" }
+  ```
+- 401 Unauthorized:
+  ```json
+  { "message": "Unauthorized" }
+  ```
+- 500 Internal Server Error:
+  ```json
+  { "message": "Something went wrong." }
+  ```
+
+
+
+#### Some Error Images
+
+<!-- ![Image](https://github.com/user-attachments/assets/4b20dcc4-47c7-4345-a7d8-d1fea97c714f)
+![Image](https://github.com/user-attachments/assets/1f48b8eb-cdb4-4fde-98ee-7bdc5a94acb8)
+![Image](https://github.com/user-attachments/assets/86635245-9f9b-4b2c-aa7e-041f63466bde)
+![Image](https://github.com/user-attachments/assets/dfd084ae-9e31-4eda-af86-04637898cbd3)
+![Image](https://github.com/user-attachments/assets/edef8574-ea36-4217-a248-b9f17e0037c5)
+![Image](https://github.com/user-attachments/assets/68847517-c70b-4504-b32a-d8236fbfab57) -->
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4b20dcc4-47c7-4345-a7d8-d1fea97c714f" width="45%">
+  <img src="https://github.com/user-attachments/assets/1f48b8eb-cdb4-4fde-98ee-7bdc5a94acb8" width="45%">
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/86635245-9f9b-4b2c-aa7e-041f63466bde" width="45%">
+  <img src="https://github.com/user-attachments/assets/dfd084ae-9e31-4eda-af86-04637898cbd3" width="45%">
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/edef8574-ea36-4217-a248-b9f17e0037c5" width="45%">
+  <img src="https://github.com/user-attachments/assets/68847517-c70b-4504-b32a-d8236fbfab57" width="45%">
+</p>
+
+
+
+## Environment Variables
+
+### Client
+```env
+VITE_BACKEND_URL=
+VITE_GOOGLE_CLIENT_ID=
+```
+
+### Server
+```env
+FRONTEND_URL=http://localhost:5173
+GOOGLE_PASSWORD_SECRET=
+GOOGLE_DEFAULT_PASSWORD='google'(you can enter any random string)
+MONGODB_URL=mongodb://127.0.0.1:27017/keeper(if connecting locally)
+JWT_SECRET=secret(you can enter any random string)
+```
+
+## License 

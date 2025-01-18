@@ -50,7 +50,7 @@ const CreateArea = () => {
       });
     } catch(error) {
       if (error.response && error.response.data) {
-        setErrorMessage( error.response.data.message || "An error occurred." );
+        setErrorMessage( error.response.data.message || "An error occurred during adding note." );
         setShowErrorModal(true);
       } else {
         setErrorMessage("Network error. Please check your connection.");
