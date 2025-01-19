@@ -40,7 +40,6 @@ export const updateNote = async (req, res) => {
   }
   try {
     const { title, content } = req.body;
-    console.log(title, content);
     const noteId = req.params.id;
     const user = await UserModel.findById(req.user._id);
     const noteIndex = user.notes.findIndex((note) => note._id.toString() === noteId);
