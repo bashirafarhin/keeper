@@ -31,6 +31,10 @@ app.use(express.json());
 app.use("/user", userRouter);
 app.use("/", authRouter);
 
+app.get('/',(req,res)=>{
+  res.send('Hello Developer!')
+})
+
 // Server setup
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
