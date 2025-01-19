@@ -52,7 +52,7 @@ const LoginForm = () => {
         email: "",
         password: "",
       });
-      navigate(`/home`);
+      navigate(`/`);
     } catch (err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
@@ -74,7 +74,7 @@ const LoginForm = () => {
         email: "",
         password: "",
       });
-      navigate(`/home`);
+      navigate(`/`);
     } catch (err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);

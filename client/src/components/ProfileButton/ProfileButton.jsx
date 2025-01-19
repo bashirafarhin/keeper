@@ -57,7 +57,7 @@ const BasicMenu = () => {
         configWithToken
       );
       localStorage.removeItem("keeper-token");
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
@@ -89,7 +89,7 @@ const BasicMenu = () => {
         configWithToken
       );
       localStorage.removeItem("keeper-token");
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);

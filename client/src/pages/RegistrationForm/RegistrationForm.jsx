@@ -52,7 +52,7 @@ const RegistrationForm = () => {
         email: "",
         password: "",
       });
-      navigate(`/home`);
+      navigate(`/`);
     } catch (err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
@@ -70,7 +70,7 @@ const RegistrationForm = () => {
         notes : response.data.user.notes,
         backgroundImageIndex : response.data.user.backgroundImageIndex
       });
-      navigate(`/home`);
+      navigate(`/`);
     } catch(err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
@@ -141,7 +141,7 @@ const RegistrationForm = () => {
           />
           <div className="login-button">
             Already Registered ?
-            <Button disableRipple onClick={() => navigate("/")}>
+            <Button disableRipple onClick={() => navigate("/login")}>
               login here
             </Button>
           </div>
