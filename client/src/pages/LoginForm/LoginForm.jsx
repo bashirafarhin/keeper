@@ -52,7 +52,7 @@ const LoginForm = () => {
         email: "",
         password: "",
       });
-      navigate(`/`);
+      navigate(`/home`);
     } catch (err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
@@ -74,22 +74,13 @@ const LoginForm = () => {
         email: "",
         password: "",
       });
-      navigate(`/`);
+      navigate(`/home`);
     } catch (err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
     } finally {
       setLoading(false);
     }
-  };
-
-  const buttonStyles = {
-    backgroundColor: "#3B71CA",
-    display: "block",
-    height: "9%",
-    width: "90%",
-    borderRadius: 7,
-    fontWeight: "bold",
   };
 
   return (
@@ -116,14 +107,14 @@ const LoginForm = () => {
             autoComplete="on"
           />
           <Button
-            style={buttonStyles}
+            style={{ height: "9%", width: "90%", outline: 'none' }}
             variant="contained"
             onClick={handleLogin}
           >
             Sign in
           </Button>
-          <div className="login-or-option">
-            <strong>OR</strong>
+          <div>
+            OR
           </div>
           <GoogleLogin
             onSuccess={(credentialResponse) => {
@@ -136,10 +127,14 @@ const LoginForm = () => {
             }}
           />
           <div className="register-button">
-            Don't have an Account ?
-            <Button disableRipple onClick={() => navigate("/registration")}>
-              Register here
-            </Button>
+            Don't have an Account?
+            <Button
+            style={{ marginLeft: '20px', outline: 'none' }}
+            onClick={() => navigate("/registration")}
+            variant="contained"
+          >
+            Register
+          </Button>
           </div>
         </form>
       </div>

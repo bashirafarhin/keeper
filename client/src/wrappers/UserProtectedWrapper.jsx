@@ -31,10 +31,10 @@ const UserProtectedWrapper = ({ children }) => {
             backgroundImageIndex: response.data.user.backgroundImageIndex,
           });
         } else {
-          navigate("/login");
+          navigate("/");
         }
       } catch (error) {
-        navigate("/login");
+        navigate("/");
       } finally {
         setLoading(false);
       }

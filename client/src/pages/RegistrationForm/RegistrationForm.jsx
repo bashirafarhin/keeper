@@ -52,7 +52,7 @@ const RegistrationForm = () => {
         email: "",
         password: "",
       });
-      navigate(`/`);
+      navigate(`/home`);
     } catch (err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
@@ -70,30 +70,13 @@ const RegistrationForm = () => {
         notes : response.data.user.notes,
         backgroundImageIndex : response.data.user.backgroundImageIndex
       });
-      navigate(`/`);
+      navigate(`/home`);
     } catch(err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
     } finally {
       setLoading(false);
     }
-  };
-
-  const buttonStyles = {
-    backgroundColor: "#3B71CA",
-    display: "block",
-    height: "9%",
-    width: "90%",
-    borderRadius: 7,
-    fontWeight: "bold",
-    "&:focus": {
-      outline: "none",
-      boxShadow: "none",
-    },
-    "&:active": {
-      outline: "none",
-      boxShadow: "none",
-    },
   };
 
   return (
@@ -120,14 +103,14 @@ const RegistrationForm = () => {
             autoComplete="on"
           />
           <Button
-            style={buttonStyles}
+            style={{ height: "9%", width: "90%", outline: 'none' }}
             variant="contained"
             onClick={handleRegistration}
           >
             Register
           </Button>
-          <div className="registration-or-option">
-            <strong>OR</strong>
+          <div>
+           OR
           </div>
           <GoogleLogin
             onSuccess={(credentialResponse) => {
@@ -141,9 +124,11 @@ const RegistrationForm = () => {
           />
           <div className="login-button">
             Already Registered ?
-            <Button disableRipple onClick={() => navigate("/login")}>
-              login here
-            </Button>
+              <Button
+            style={{ marginLeft: '20px', outline: 'none' }}
+            onClick={() => navigate("/")}
+            variant="contained"
+          >Login</Button>
           </div>
         </form>
         {showErrorModal && (

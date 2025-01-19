@@ -1,8 +1,5 @@
-* {
-    box-sizing: border-box;
-}
 .registration-container {
-    height: 80vh;
+    height: 75vh;
     width: 30vw;
     margin: 3rem auto;
     min-width: 415px;
@@ -26,7 +23,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap : 2rem;
+    gap : 1.5rem;
     border-radius: 7px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     
@@ -46,20 +43,6 @@
   .registration-input:focus {
     outline: 2px solid #0074D9;
     border: none;
-  }
-
-  .registration-or-option{
-    color: #757575;
-  }
-
-  .login-button {
-    color: #393737;
-    font-size: large;
-    font-weight: 500;
-  }
-
-  .login-button > Button {
-    outline : none;
   }
 
   @media only screen and (max-width:1115px){
