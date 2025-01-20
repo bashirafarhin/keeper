@@ -24,16 +24,14 @@ const Note = (props) => {
     
   const handleDelete = async() => {
     setLoading(true);
-    const token = localStorage.getItem('keeper-token');
-    const configWithToken = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      withCredentials: true
-    };
     try {
-      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/user/deleteNote/${props.id}`, configWithToken);
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/user/deleteNote/${props.id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('keeper-token')}`
+        },
+        withCredentials: true
+      });
       setDetails((prevDetails) => ({
         ...prevDetails,
         notes: prevDetails.notes.filter((note) => note._id !== props.id), // Use noteId to filter
@@ -48,17 +46,15 @@ const Note = (props) => {
 
   const handleUpdatedNote = async() => {
     setLoading(true);
-    const token = localStorage.getItem('keeper-token');
-    const configWithToken = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      withCredentials: true
-    };
       setIsDisable(true);
       try {
-        await axios.put(`${import.meta.env.VITE_BACKEND_URL}/user/updateNote/${props.id}`, note, configWithToken);
+        await axios.put(`${import.meta.env.VITE_BACKEND_URL}/user/updateNote/${props.id}`, note, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('keeper-token')}`
+          },
+          withCredentials: true
+        });
         setDetails((prevDetails) => {
           const updatedNotes = [...prevDetails.notes];
           const noteIndex = updatedNotes.findIndex((note) => note._id === props.id);
@@ -72,8 +68,7 @@ const Note = (props) => {
       } catch(err) {
         setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
         setShowErrorModal(true);
-        //if error show restore the original title and context
-        setNote({
+        setNote({ //if error show restore the original title and content
           title : props.title,
           content : props.content,
         })

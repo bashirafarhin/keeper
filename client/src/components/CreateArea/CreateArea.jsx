@@ -31,16 +31,14 @@ const CreateArea = () => {
    const submitNote = async(event) => {
     event.preventDefault();
     setLoading(true);
-    const token = localStorage.getItem('keeper-token');
-    const configWithToken = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      withCredentials: true
-    };
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/addNote`, note, configWithToken);
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/addNote`, note, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('keeper-token')}`
+        },
+        withCredentials: true
+      });
       setDetails((prevDetails) => ({
         ...prevDetails,
         notes : [...prevDetails.notes, res.data.note],

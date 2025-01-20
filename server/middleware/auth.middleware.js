@@ -1,7 +1,6 @@
 import UserModel from "../Database/models/user.model.js";
 import BlacklistTokenModel from "../Database/models/blacklistToken.model.js";
 import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
 import env from "dotenv";
 env.config();
 

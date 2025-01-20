@@ -1,7 +1,6 @@
 import UserModel from "../Database/models/user.model.js";
 import { validationResult } from "express-validator";
 import BlacklistTokenModel from "../Database/models/blacklistToken.model.js";
-import jwt from "jsonwebtoken";
 import env from "dotenv";
 env.config();
 
@@ -36,7 +35,7 @@ export const loginUser = async (req, res) => {
   }
   try {
     const { email, password } = req.body;
-    const user = await UserModel.findOne({ email }).select("+password"); //here +password is used to select the password as we have set select : false in the model
+    const user = await UserModel.findOne({ email }).select("+password");
     if (!user) {
       return res.status(404).json({ message: "User not registered." });
     }

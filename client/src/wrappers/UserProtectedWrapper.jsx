@@ -15,17 +15,14 @@ const UserProtectedWrapper = ({ children }) => {
       setLoading(true);
       try {
         if (token) {
-          const configWithToken = {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            withCredentials: true,
-          };
           const response = await axios.get(
-            `${import.meta.env.VITE_BACKEND_URL}/user/profile`,
-            configWithToken
-          );
+            `${import.meta.env.VITE_BACKEND_URL}/user/profile`, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              withCredentials: true,
+            });
           setDetails({
             notes: response.data.user.notes,
             backgroundImageIndex: response.data.user.backgroundImageIndex,

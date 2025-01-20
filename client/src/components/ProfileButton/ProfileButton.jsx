@@ -4,7 +4,6 @@ import "./ProfileButton.css";
 import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
 import MydModalWithGrid from "./MydModalWithGrid";
 import { useNavigate } from "react-router-dom";
-import { googleLogout } from "@react-oauth/google";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import axios from "axios";
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
@@ -44,17 +43,14 @@ const BasicMenu = () => {
     setAnchorEl(null);
     setLoading(true);
     try {
-      const token = localStorage.getItem("keeper-token");
-      const configWithToken = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-      };
       await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/logout`,
-        configWithToken
+        `${import.meta.env.VITE_BACKEND_URL}/logout`,{
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("keeper-token")}`,
+          },
+          withCredentials: true,
+        }
       );
       localStorage.removeItem("keeper-token");
       navigate("/");
@@ -76,17 +72,14 @@ const BasicMenu = () => {
     document.body.style.backgroundImage = "none";
     setShowModalDeleteAccount(false);
     try {
-      const token = localStorage.getItem("keeper-token");
-      const configWithToken = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-      };
       await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/deleteAccount`,
-        configWithToken
+        `${import.meta.env.VITE_BACKEND_URL}/deleteAccount`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("keeper-token")}`,
+          },
+          withCredentials: true,
+        }
       );
       localStorage.removeItem("keeper-token");
       navigate("/");
@@ -99,7 +92,7 @@ const BasicMenu = () => {
   };
 
   return (
-    <div>
+    <>
       <Button
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
@@ -155,7 +148,7 @@ const BasicMenu = () => {
         />
       )}
       { loading && <Loader/> }
-    </div>
+    </>
   );
 };
 

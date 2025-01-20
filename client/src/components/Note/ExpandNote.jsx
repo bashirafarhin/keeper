@@ -15,8 +15,6 @@ const ExpandNote = (props) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body >
-      
- 
         <h4 style={{color: "#898585" , fontFamily : "Playwrite FR Moderne" ,whiteSpace : "pre-wrap" ,wordWrap : "break-word"}}>{props.title}</h4>
         <p style={{fontFamily : "Playwrite DE Grund",whiteSpace : "pre-wrap" ,wordWrap : "break-word"}}>
         {props.content}

@@ -20,13 +20,6 @@ const RegistrationForm = () => {
     password: "",
   });
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    withCredentials: true,
-  };
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setRegistrationDetails((prevValue) => {
@@ -43,10 +36,12 @@ const RegistrationForm = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/register`,
-        register,
-        config
-      );
+        `${import.meta.env.VITE_BACKEND_URL}/register`, register, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        } );
       localStorage.setItem("keeper-token", response.data.token);
       setDetails({
         notes: response.data.user.notes,
@@ -72,10 +67,12 @@ const RegistrationForm = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/registerGoogle`,
-        { email },
-        config
-      );
+        `${import.meta.env.VITE_BACKEND_URL}/registerGoogle`, { email }, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        } );
       localStorage.setItem("keeper-token", response.data.token);
       setDetails({
         notes: response.data.user.notes,

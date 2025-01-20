@@ -15,12 +15,6 @@ const LoginForm = () => {
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const { setDetails } = useContext(UserContext);
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    withCredentials: true,
-  };
 
   const [login, setLoginDetails] = useState({
     email: "",
@@ -42,7 +36,12 @@ const LoginForm = () => {
     event.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, login, config );
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, login, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      } );
       localStorage.setItem("keeper-token", response.data.token);
       setDetails({
         notes : response.data.user.notes,
@@ -64,7 +63,12 @@ const LoginForm = () => {
   const handleLoginUsingGoogle = async (email) => {
     setLoading(true);
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/loginGoogle`, { email }, config );
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/loginGoogle`, { email }, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      } );
       localStorage.setItem("keeper-token", response.data.token);
       setDetails({
         notes : response.data.user.notes,
