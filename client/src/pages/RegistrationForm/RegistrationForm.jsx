@@ -1,10 +1,10 @@
 import { useState, useContext } from "react";
 import Button from "@mui/material/Button";
 import "./RegistrationForm.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { GoogleLogin } from "@react-oauth/google";
-import ErrorModal from "../../components/ErrorModal/ErrorModal.jsx"
+import ErrorModal from "../../components/ErrorModal/ErrorModal.jsx";
 import { UserContext } from "../../context/UserContext.jsx";
 import axios from "axios";
 import Loader from "../../components/Loader/Loader.jsx";
@@ -42,11 +42,15 @@ const RegistrationForm = () => {
     event.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, register, config);
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/register`,
+        register,
+        config
+      );
       localStorage.setItem("keeper-token", response.data.token);
       setDetails({
-        notes : response.data.user.notes,
-        backgroundImageIndex : response.data.user.backgroundImageIndex
+        notes: response.data.user.notes,
+        backgroundImageIndex: response.data.user.backgroundImageIndex,
       });
       setRegistrationDetails({
         email: "",
@@ -54,7 +58,10 @@ const RegistrationForm = () => {
       });
       navigate(`/home`);
     } catch (err) {
-      setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
+      setErrorMessage(
+        err.response?.data?.message ||
+          "Network error. Please check your connection."
+      );
       setShowErrorModal(true);
     } finally {
       setLoading(false);
@@ -64,15 +71,22 @@ const RegistrationForm = () => {
   const handleRegistrationUsingGoogle = async (email) => {
     setLoading(true);
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/registerGoogle`,{email}, config);
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/registerGoogle`,
+        { email },
+        config
+      );
       localStorage.setItem("keeper-token", response.data.token);
       setDetails({
-        notes : response.data.user.notes,
-        backgroundImageIndex : response.data.user.backgroundImageIndex
+        notes: response.data.user.notes,
+        backgroundImageIndex: response.data.user.backgroundImageIndex,
       });
       navigate(`/home`);
-    } catch(err) {
-      setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
+    } catch (err) {
+      setErrorMessage(
+        err.response?.data?.message ||
+          "Network error. Please check your connection."
+      );
       setShowErrorModal(true);
     } finally {
       setLoading(false);
@@ -103,43 +117,49 @@ const RegistrationForm = () => {
             autoComplete="on"
           />
           <Button
-            style={{ height: "9%", width: "90%", outline: 'none' }}
+            style={{ height: "9%", width: "90%", outline: "none" }}
             variant="contained"
             onClick={handleRegistration}
           >
             Register
           </Button>
-          <div>
-           OR
-          </div>
+          <div>OR</div>
           <GoogleLogin
             onSuccess={(credentialResponse) => {
               const details = jwtDecode(credentialResponse.credential);
               handleRegistrationUsingGoogle(details.email);
             }}
             onError={() => {
-              setErrorMessage('Error occured on goolge server side.');
+              setErrorMessage("Error occured on goolge server side.");
               setShowErrorModal(true);
             }}
           />
           <div className="login-button">
             Already Registered ?
-              <Button
-            style={{ marginLeft: '20px', outline: 'none' }}
-            onClick={() => navigate("/")}
-            variant="contained"
-          >Login</Button>
+            <Button
+              style={{ marginLeft: "20px", outline: "none" }}
+              onClick={() => navigate("/")}
+              variant="contained"
+            >
+              Login
+            </Button>
           </div>
         </form>
-        {showErrorModal && (
-        <ErrorModal
-          Error={errorMessage}
-          handleShow={showErrorModal}
-          handleHide={() => setShowErrorModal(false)}
-        />
-      )}
-      { loading && <Loader/> }
       </div>
+      <div className="note-for-slow-service">
+          <strong>Notice</strong>
+          <p>
+            The service may take a few seconds to respond as it runs on a free-tier server <Link to="https://render.com/">Render</Link>, which goes to sleep when inactive.
+          </p>
+        </div>
+        {showErrorModal && (
+          <ErrorModal
+            Error={errorMessage}
+            handleShow={showErrorModal}
+            handleHide={() => setShowErrorModal(false)}
+          />
+        )}
+        {loading && <Loader />}
     </>
   );
 };

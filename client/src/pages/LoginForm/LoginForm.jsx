@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import Button from "@mui/material/Button";
 import "./LoginForm.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { GoogleLogin } from "@react-oauth/google";
 import ErrorModal from "../../components/ErrorModal/ErrorModal";
@@ -137,6 +137,10 @@ const LoginForm = () => {
           </Button>
           </div>
         </form>
+      </div>
+      <div className="note-for-slow-service">
+        <strong>Notice</strong>
+        <p>The service may take a few seconds to respond as it runs on a free-tier server <Link to='https://render.com/'>Render</Link>, which goes to sleep when inactive.</p>
       </div>
       {showErrorModal && (
         <ErrorModal
