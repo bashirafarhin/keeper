@@ -1,0 +1,1 @@
+import{j as o,b as t}from"./index-CJEObS44.js";import{k as n}from"./Button-lZ3MwpY1.js";const e=()=>o.jsx("div",{className:"not-found-container",children:o.jsx(t,{to:"/",children:o.jsx(n,{variant:"contained",children:"Go to home page"})})});export{e as default};

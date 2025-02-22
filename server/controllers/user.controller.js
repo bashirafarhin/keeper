@@ -23,7 +23,6 @@ export const addNote = async (req, res) => {
 export const updateBackgroundImage = async (req, res) => {
   try {
     const { url } = req.body;
-    console.log(url);
     await UserModel.findOneAndUpdate(
       { _id: req.user._id },
       { backgroundImage: url }
