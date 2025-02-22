@@ -22,10 +22,11 @@ export const addNote = async (req, res) => {
 
 export const updateBackgroundImage = async (req, res) => {
   try {
-    const { backgroundImage } = req.body;
+    const { url } = req.body;
+    console.log(url);
     await UserModel.findOneAndUpdate(
       { _id: req.user._id },
-      { backgroundImage: backgroundImage }
+      { backgroundImage: url }
     );
     res.status(200).json({ message: "Updated background successfully." });
   } catch {
