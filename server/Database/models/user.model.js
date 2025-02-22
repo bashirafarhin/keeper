@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     },
     backgroundImage: {
         type: String,
-        default: "https://t3.ftcdn.net/jpg/02/77/30/98/360_F_277309825_h8RvZkoyBGPDocMtippdfe3497xTrOXO.jpg",
+        default: "https://st2.depositphotos.com/4376739/6818/v/450/depositphotos_68189077-stock-illustration-abstract-geometric-pattern-dot-with.jpg",
     }
 });
 
