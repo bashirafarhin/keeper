@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useState, lazy } from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
 import "./ProfileButton.css";
-import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
-import MydModalWithGrid from "./MydModalWithGrid";
 import { useNavigate } from "react-router-dom";
-import DeleteModal from "../DeleteModal/DeleteModal";
-import axios from "axios";
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
-import ErrorModal from "../ErrorModal/ErrorModal";
-import Loader from "../Loader/Loader";
+import axios from "axios";
+
+const MyVerticallyCenteredModal = lazy(() => import("./MyVerticallyCenteredModal"));
+const MydModalWithGrid = lazy(() => import("./MydModalWithGrid"));
+const DeleteModal = lazy(() => import("../DeleteModal/DeleteModal"));
+const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal"));
+const Loader = lazy(() => import("../Loader/Loader"));
 
 const BasicMenu = () => {
   const navigate = useNavigate();

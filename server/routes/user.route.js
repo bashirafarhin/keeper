@@ -1,6 +1,6 @@
 import express from "express";
 import { body, param } from "express-validator";
-import { addNote, updateNote, updateBackgroundImage, deleteNote, getUserProfile } from "../controllers/user.controller.js";
+import { addNote, updateNote, updateBackgroundImage, deleteNote, getUserProfile, getBackgroundImages } from "../controllers/user.controller.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 const userRouter = express.Router();
 
@@ -16,14 +16,13 @@ userRouter.put("/updateNote/:id",[
     param('id').isMongoId().withMessage('Invalid note ID'),
 ], authMiddleware, updateNote);
 
-userRouter.post('/updateBackground',[
-    body('index').isInt({ min: 0 }).withMessage('Index must be a valid positive number'),
-], authMiddleware, updateBackgroundImage);
+userRouter.post('/updateBackground', authMiddleware, updateBackgroundImage);
 
 userRouter.delete("/deleteNote/:id",[
     param('id').isMongoId().withMessage('Invalid note ID'),
 ], authMiddleware, deleteNote);
 
 userRouter.get("/profile", authMiddleware, getUserProfile);
+userRouter.get("/backgroundImages", getBackgroundImages);
 
 export default userRouter;

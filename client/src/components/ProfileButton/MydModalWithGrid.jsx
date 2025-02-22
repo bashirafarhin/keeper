@@ -1,19 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Button, Container, Modal } from "react-bootstrap";
-import backgroundImagesLink from "./BackgroundImages";
-import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import ErrorModal from "../ErrorModal/ErrorModal";
 import axios from "axios";
 import Loader from "../Loader/Loader";
 
 const MydModalWithGrid = (props) => {
+  const [ backgroundImages, setBackgroundImages ] = useState([]);
   const [ loading, setLoading ] = useState(false);
   const { setDetails } = useContext(UserContext);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleBackgroundImage = async (index) => {
+  useEffect(() => {
+    const fetchBackgroundImages = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/backgroundImages`);
+        setBackgroundImages(response.data.backgroundImages);
+      } catch(err) {
+        setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
+      }
+    }
+    fetchBackgroundImages();
+  }, []);
+
+  const handleBackgroundImage = async (url) => {
     setLoading(true);
     const token = localStorage.getItem("keeper-token");
     const configWithToken = {
@@ -24,10 +35,10 @@ const MydModalWithGrid = (props) => {
       withCredentials: true,
     };
     try {
-      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/updateBackground`, { index }, configWithToken );
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/updateBackground`, { url }, configWithToken );
       setDetails((prevDetails) => ({
         ...prevDetails,
-        backgroundImageIndex: index,
+        backgroundImage: url,
       }));
     } catch(err) {
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
@@ -52,14 +63,14 @@ const MydModalWithGrid = (props) => {
       <Modal.Body className="grid-example">
         <Container className="p-0 container">
           <div className="grid-container">
-            {backgroundImagesLink.map((imgLink, index) => (
+            {backgroundImages.map((imgUrl, index) => (
               <div
                 key={index}
                 className="grid-item"
                 style={{
-                  backgroundImage: `url(${`/backgroundImages/${imgLink}`})`,
+                  backgroundImage: `url(${imgUrl})`,
                 }}
-                onClick={() => handleBackgroundImage(index)}
+                onClick={() => handleBackgroundImage(imgUrl)}
               ></div>
             ))}
           </div>

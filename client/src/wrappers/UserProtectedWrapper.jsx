@@ -25,7 +25,7 @@ const UserProtectedWrapper = ({ children }) => {
             });
           setDetails({
             notes: response.data.user.notes,
-            backgroundImageIndex: response.data.user.backgroundImageIndex,
+            backgroundImage: response.data.user.backgroundImage,
           });
         } else {
           navigate("/");

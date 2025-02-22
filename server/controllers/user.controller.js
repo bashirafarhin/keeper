@@ -1,5 +1,6 @@
 import UserModel from "../Database/models/user.model.js";
 import { validationResult } from "express-validator";
+import { backgroundImages } from "../utils/backgroundImages.js";
 
 export const addNote = async (req, res) => {
   const errors = validationResult(req);
@@ -21,11 +22,10 @@ export const addNote = async (req, res) => {
 
 export const updateBackgroundImage = async (req, res) => {
   try {
-    const { index } = req.body;
+    const { backgroundImage } = req.body;
     await UserModel.findOneAndUpdate(
       { _id: req.user._id },
-      { backgroundImageIndex: index },
-      { new: true }
+      { backgroundImage: backgroundImage }
     );
     res.status(200).json({ message: "Updated background successfully." });
   } catch {
@@ -71,6 +71,14 @@ export const deleteNote = async(req,res) =>{
 export const getUserProfile = async(req,res) => {
   try {
     return await res.status(200).json({user : req.user});
+  } catch(err) {
+    return res.status(500).json({ message: "Something went wrong." });
+  }
+}
+
+export const getBackgroundImages = async(req,res) => {
+  try {
+    return res.status(200).json({ backgroundImages });
   } catch(err) {
     return res.status(500).json({ message: "Something went wrong." });
   }

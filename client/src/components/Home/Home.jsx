@@ -5,13 +5,11 @@ import Footer from "../Footer/Footer.jsx";
 import Note from "../Note/Note.jsx";
 import CreateArea from "../CreateArea/CreateArea.jsx";
 import { UserContext } from "../../context/UserContext.jsx";
-import backgroundImagesLink from "../ProfileButton/BackgroundImages.js";
 
 const Home = () => {
-    const { details : { notes, backgroundImageIndex} } = useContext(UserContext);
-    const validBackgroundIndex = Math.min(backgroundImageIndex, backgroundImagesLink.length - 1);
+    const { details : { notes, backgroundImage} } = useContext(UserContext);
     return (
-      <div style={{backgroundImage: `url(/backgroundImages/${backgroundImagesLink[validBackgroundIndex]})`}} className="home-container">
+      <div style={{backgroundImage: `url(${backgroundImage})`}} className="home-container">
       <Header/>
       <div>
       <CreateArea/>

@@ -1,6 +1,7 @@
+import React from 'react';
 import HighlightIcon from '@mui/icons-material/Highlight';
 import "./Header.css";
-import BasicMenu from '../ProfileButton/ProfileButton';
+const BasicMenu = React.lazy(() => import('../ProfileButton/ProfileButton'));
 
 const Header = () => {
   return (

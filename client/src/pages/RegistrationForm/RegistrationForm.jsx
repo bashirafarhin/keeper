@@ -45,7 +45,7 @@ const RegistrationForm = () => {
       localStorage.setItem("keeper-token", response.data.token);
       setDetails({
         notes: response.data.user.notes,
-        backgroundImageIndex: response.data.user.backgroundImageIndex,
+        backgroundImage: response.data.user.backgroundImage,
       });
       setRegistrationDetails({
         email: "",
@@ -76,7 +76,7 @@ const RegistrationForm = () => {
       localStorage.setItem("keeper-token", response.data.token);
       setDetails({
         notes: response.data.user.notes,
-        backgroundImageIndex: response.data.user.backgroundImageIndex,
+        backgroundImage: response.data.user.backgroundImage,
       });
       navigate(`/home`);
     } catch (err) {

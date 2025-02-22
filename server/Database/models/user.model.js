@@ -22,11 +22,10 @@ const userSchema = new mongoose.Schema({
         type: [noteSchema],
         default: [],
     },
-    backgroundImageIndex: {
-        type: Number,
-        default: 0,
-        min: 0,
-    },
+    backgroundImage: {
+        type: String,
+        default: "https://t3.ftcdn.net/jpg/02/77/30/98/360_F_277309825_h8RvZkoyBGPDocMtippdfe3497xTrOXO.jpg",
+    }
 });
 
 userSchema.methods.generateAuthToken = function() {

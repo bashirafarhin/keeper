@@ -1,15 +1,15 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./components/Home/Home.jsx";
-import NotFound from "./components/NotFound/NotFound.jsx";
-import "./App.css";
 import UserProtectedWrapper from "./wrappers/UserProtectedWrapper.jsx";
-import LoginForm from "./pages/LoginForm/LoginForm.jsx";
-import RegistrationForm from "./pages/RegistrationForm/RegistrationForm.jsx";
+const Home = lazy(() => import("./components/Home/Home.jsx"));
+const NotFound = lazy(() => import("./components/NotFound/NotFound.jsx"));
+const LoginForm = lazy(() => import("./pages/LoginForm/LoginForm.jsx"));
+const RegistrationForm = lazy(() => import("./pages/RegistrationForm/RegistrationForm.jsx"));
+import "./App.css";
 
 function App() {
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginForm />} />
@@ -25,7 +25,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </Suspense>
   );
 }
 

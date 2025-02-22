@@ -126,7 +126,7 @@ The backend server will run on `http://localhost:8000`
     "_id": "<user-id>",
     "email": "user@example.com",
     "notes": ["consist notes objects"],
-    "backgroundImageIndex": 0
+    "backgroundImage": "url",
   }
 }
 ```
@@ -154,7 +154,7 @@ The backend server will run on `http://localhost:8000`
   "_id": "<user-id>",
   "email": "user@example.com",
   "notes": ["consist notes objects"],
-  "backgroundImageIndex": 0
+  "backgroundImage": "url",
   }
 }
 ```
@@ -181,7 +181,7 @@ The backend server will run on `http://localhost:8000`
   "_id": "<user-id>",
   "email": "user@example.com",
   "notes": ["consist notes objects"],
-  "backgroundImageIndex": 0
+  "backgroundImage": "url",
   }
 }
 ```
@@ -208,7 +208,7 @@ The backend server will run on `http://localhost:8000`
   "_id": "<user-id>",
   "email": "user@example.com",
   "notes": ["consist notes objects"],
-  "backgroundImageIndex": 0
+  "backgroundImage": "url",
   }
 }
 ```
@@ -343,7 +343,7 @@ The backend server will run on `http://localhost:8000`
   "_id": "<user-id>",
   "email": "user@example.com",
   "notes": ["contains notes object"],
-  "backgroundImageIndex": "default background index or user defined"
+  "backgroundImage": "default background image url"
   }
  }
  ```
