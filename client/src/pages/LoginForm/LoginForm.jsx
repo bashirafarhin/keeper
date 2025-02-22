@@ -69,7 +69,6 @@ const LoginForm = () => {
         },
         withCredentials: true,
       } );
-      console.log(response);
       localStorage.setItem("keeper-token", response.data.token);
       setDetails({
         notes : response.data.user.notes,
