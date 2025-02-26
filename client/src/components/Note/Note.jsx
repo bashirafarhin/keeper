@@ -68,7 +68,7 @@ const Note = (props) => {
       } catch(err) {
         setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
         setShowErrorModal(true);
-        setNote({ //if error show restore the original title and content
+        setNote({
           title : props.title,
           content : props.content,
         })
