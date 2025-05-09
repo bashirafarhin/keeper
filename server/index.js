@@ -17,11 +17,24 @@ connectToDB();
 
 // Middleware
 app.use(cookieParser());
+const allowedOrigins = [
+  import.meta.env.process.env.FRONTEND_URL,
+  import.meta.env.process.env.FRONTEND_URL_2,
+];
+
 app.use(
   cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   })
 );
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
