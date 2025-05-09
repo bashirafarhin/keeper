@@ -42,6 +42,7 @@ const LoginForm = () => {
         },
         withCredentials: true,
       } );
+      console.log(response);
       localStorage.setItem("keeper-token", response.data.token);
       setDetails({
         notes : response.data.user.notes,
@@ -53,6 +54,7 @@ const LoginForm = () => {
       });
       navigate(`/home`);
     } catch (err) {
+      console.log(err);
       setErrorMessage(err.response?.data?.message || "Network error. Please check your connection.");
       setShowErrorModal(true);
     } finally {
