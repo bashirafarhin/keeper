@@ -18,8 +18,8 @@ connectToDB();
 // Middleware
 app.use(cookieParser());
 const allowedOrigins = [
-  import.meta.env.process.env.FRONTEND_URL,
-  import.meta.env.process.env.FRONTEND_URL_2,
+  process.env.FRONTEND_URL,
+  process.env.FRONTEND_URL_2,
 ];
 
 app.use(
